@@ -10,3 +10,8 @@ To keep these keys safe and easy to use in the project, I used Xcode environment
 
 That's all. Now when you run the app, the project should read these keys from the environment variables and you should be able to use this app
 
+
+
+Authentication | Navigation
+--- | ---
+<video src= "https://github.com/edsontoledo-g/SpotifyClone/assets/80664103/95798342-ecb8-47c4-9ce8-42fbbbc540ee"/> | <video src= "https://github.com/edsontoledo-g/SpotifyClone/assets/80664103/68001af8-1be0-4b2e-aa63-4b260a4880bf"/>
