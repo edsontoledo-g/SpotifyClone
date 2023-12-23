@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct HomeRemoteDataSource {
+class HomeRemoteDataSource {
     
     func fetchUserTopItems<T: Decodable>(
         accessToken: String,

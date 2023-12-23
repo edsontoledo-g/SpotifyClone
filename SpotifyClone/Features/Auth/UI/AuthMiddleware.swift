@@ -8,9 +8,13 @@
 import Foundation
 import UnidirectionalFlow
 
-struct AuthMiddleware: Middleware {
+class AuthMiddleware: Middleware {
     
-    private let authUseCase = AuthUseCase()
+    private let authUseCase: AuthUseCase
+    
+    init() {
+        authUseCase = AuthInjector.provideAuthUseCase()
+    }
     
     func process(state: AuthState, with action: AuthAction) async -> AuthAction? {
         switch action {

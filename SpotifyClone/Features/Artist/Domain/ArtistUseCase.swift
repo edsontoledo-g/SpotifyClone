@@ -9,7 +9,11 @@ import Foundation
 
 class ArtistUseCase {
     
-    private let artistRepository = ArtistRepository()
+    private let artistRepository: ArtistRepository
+    
+    init(artistRepository: ArtistRepository) {
+        self.artistRepository = artistRepository
+    }
     
     func fetchArtist(accessToken: String, id: String) async throws -> Artist {
         try await artistRepository.fetchArtist(accessToken: accessToken, id: id)

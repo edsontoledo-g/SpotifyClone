@@ -8,9 +8,13 @@
 import Foundation
 import UnidirectionalFlow
 
-struct AlbumMiddleware: Middleware {
+class AlbumMiddleware: Middleware {
     
-    private let albumUseCase = AlbumUseCase()
+    private let albumUseCase: AlbumUseCase
+    
+    init() {
+        albumUseCase = AlbumInjector.provideAlbumUseCase()
+    }
     
     func process(state: AlbumState, with action: AlbumAction) async -> AlbumAction? {
         switch action {

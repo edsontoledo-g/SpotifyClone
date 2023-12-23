@@ -7,48 +7,56 @@
 
 import Foundation
 
-struct AuthRepository {
+class AuthRepository {
     
-    private let authRemote = AuthRemoteDataSource()
-    private let authLocal = AuthLocalDataSource()
+    private let authRemoteDataSource: AuthRemoteDataSource
+    private let authLocalDataSource: AuthLocalDataSource
+    
+    init(
+        authRemoteDataSource: AuthRemoteDataSource,
+        authLocalDataSource: AuthLocalDataSource
+    ) {
+        self.authRemoteDataSource = authRemoteDataSource
+        self.authLocalDataSource = authLocalDataSource
+    }
     
     func fetchAccessTokenData(with code: String) async throws -> AccessTokenResponse {
-        try await authRemote.fetchAccessTokenData(with: code)
+        try await authRemoteDataSource.fetchAccessTokenData(with: code)
     }
     
     func refreshAccessToken(with refreshToken: String) async throws -> AccessTokenResponse {
-        try await authRemote.refreshAccessToken(with: refreshToken)
+        try await authRemoteDataSource.refreshAccessToken(with: refreshToken)
     }
     
     func getAccessToken() -> String? {
-        authLocal.getAccessToken()
+        authLocalDataSource.getAccessToken()
     }
     
     func getRefreshToken() -> String? {
-        authLocal.getRefreshToken()
+        authLocalDataSource.getRefreshToken()
     }
     
     func getAccessTokenExpirationTime() -> Int? {
-        authLocal.getAccessTokenExpirationTime()
+        authLocalDataSource.getAccessTokenExpirationTime()
     }
     
     func getLastAccessTokenDate() -> String? {
-        authLocal.getLastAccessTokenDate()
+        authLocalDataSource.getLastAccessTokenDate()
     }
     
     func setAccessToken(_ accessToken: String) {
-        authLocal.setAccessToken(accessToken)
+        authLocalDataSource.setAccessToken(accessToken)
     }
     
     func setRefreshToken(_ refreshToken: String?) {
-        authLocal.setRefreshToken(refreshToken)
+        authLocalDataSource.setRefreshToken(refreshToken)
     }
     
     func setAccessTokenExpirationTime(_ expirationTime: Int) {
-        authLocal.setAccessTokenExpirationTime(expirationTime)
+        authLocalDataSource.setAccessTokenExpirationTime(expirationTime)
     }
     
     func setLastAccessTokenDate(_ date: String) {
-        authLocal.setLastAccessTokenDate(date)
+        authLocalDataSource.setLastAccessTokenDate(date)
     }
 }

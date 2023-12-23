@@ -31,6 +31,11 @@
 		BC570F8F2B35D52A007FD1BE /* DataInjector.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC570F8E2B35D52A007FD1BE /* DataInjector.swift */; };
 		BC570F912B35F095007FD1BE /* DataModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC570F902B35F095007FD1BE /* DataModels.swift */; };
 		BC570F942B36024A007FD1BE /* SearchLocalDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC570F932B36024A007FD1BE /* SearchLocalDataSource.swift */; };
+		BC570F972B3772C8007FD1BE /* AuthInjector.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC570F962B3772C8007FD1BE /* AuthInjector.swift */; };
+		BC570F9A2B3777E6007FD1BE /* HomeInjector.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC570F992B3777E6007FD1BE /* HomeInjector.swift */; };
+		BC570F9D2B3779FA007FD1BE /* ProfileInjector.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC570F9C2B3779FA007FD1BE /* ProfileInjector.swift */; };
+		BC570FA02B377CAD007FD1BE /* ArtistInjector.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC570F9F2B377CAD007FD1BE /* ArtistInjector.swift */; };
+		BC570FA32B377EB0007FD1BE /* AlbumInjector.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC570FA22B377EB0007FD1BE /* AlbumInjector.swift */; };
 		BC599BC12B15490500E7ADF7 /* SearchBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC599BC02B15490500E7ADF7 /* SearchBarView.swift */; };
 		BC6321A32AE5EBFB00EC126A /* ArtistTrackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC6321A22AE5EBFB00EC126A /* ArtistTrackView.swift */; };
 		BC6321A52AE5F28D00EC126A /* VerticalArtistSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC6321A42AE5F28D00EC126A /* VerticalArtistSectionView.swift */; };
@@ -118,6 +123,11 @@
 		BC570F8E2B35D52A007FD1BE /* DataInjector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataInjector.swift; sourceTree = "<group>"; };
 		BC570F902B35F095007FD1BE /* DataModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataModels.swift; sourceTree = "<group>"; };
 		BC570F932B36024A007FD1BE /* SearchLocalDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchLocalDataSource.swift; sourceTree = "<group>"; };
+		BC570F962B3772C8007FD1BE /* AuthInjector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthInjector.swift; sourceTree = "<group>"; };
+		BC570F992B3777E6007FD1BE /* HomeInjector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeInjector.swift; sourceTree = "<group>"; };
+		BC570F9C2B3779FA007FD1BE /* ProfileInjector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileInjector.swift; sourceTree = "<group>"; };
+		BC570F9F2B377CAD007FD1BE /* ArtistInjector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtistInjector.swift; sourceTree = "<group>"; };
+		BC570FA22B377EB0007FD1BE /* AlbumInjector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumInjector.swift; sourceTree = "<group>"; };
 		BC599BC02B15490500E7ADF7 /* SearchBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBarView.swift; sourceTree = "<group>"; };
 		BC6321A22AE5EBFB00EC126A /* ArtistTrackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtistTrackView.swift; sourceTree = "<group>"; };
 		BC6321A42AE5F28D00EC126A /* VerticalArtistSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerticalArtistSectionView.swift; sourceTree = "<group>"; };
@@ -219,9 +229,10 @@
 		BC5149892AAB852100C6E0A3 /* Profile */ = {
 			isa = PBXGroup;
 			children = (
+				BC570F9B2B3779C0007FD1BE /* DI */,
 				BC1875262B1D7A1A0080708D /* UI */,
-				BC51498A2AAB853700C6E0A3 /* Data */,
 				BC51498E2AAB856200C6E0A3 /* Domain */,
+				BC51498A2AAB853700C6E0A3 /* Data */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -283,6 +294,46 @@
 				BC570F932B36024A007FD1BE /* SearchLocalDataSource.swift */,
 			);
 			path = Local;
+			sourceTree = "<group>";
+		};
+		BC570F952B3772BA007FD1BE /* DI */ = {
+			isa = PBXGroup;
+			children = (
+				BC570F962B3772C8007FD1BE /* AuthInjector.swift */,
+			);
+			path = DI;
+			sourceTree = "<group>";
+		};
+		BC570F982B3777D8007FD1BE /* DI */ = {
+			isa = PBXGroup;
+			children = (
+				BC570F992B3777E6007FD1BE /* HomeInjector.swift */,
+			);
+			path = DI;
+			sourceTree = "<group>";
+		};
+		BC570F9B2B3779C0007FD1BE /* DI */ = {
+			isa = PBXGroup;
+			children = (
+				BC570F9C2B3779FA007FD1BE /* ProfileInjector.swift */,
+			);
+			path = DI;
+			sourceTree = "<group>";
+		};
+		BC570F9E2B377CA3007FD1BE /* DI */ = {
+			isa = PBXGroup;
+			children = (
+				BC570F9F2B377CAD007FD1BE /* ArtistInjector.swift */,
+			);
+			path = DI;
+			sourceTree = "<group>";
+		};
+		BC570FA12B377E9C007FD1BE /* DI */ = {
+			isa = PBXGroup;
+			children = (
+				BC570FA22B377EB0007FD1BE /* AlbumInjector.swift */,
+			);
+			path = DI;
 			sourceTree = "<group>";
 		};
 		BC63219F2AE5EB9C00EC126A /* Custom Views */ = {
@@ -367,9 +418,10 @@
 			isa = PBXGroup;
 			children = (
 				BC749E9A2A986B2D0070322A /* SignIn */,
+				BC570F952B3772BA007FD1BE /* DI */,
 				BCE55FAD2A99075C005AF29B /* UI */,
-				BCE55FAA2A990617005AF29B /* Data */,
 				BCE55FB02A990870005AF29B /* Domain */,
+				BCE55FAA2A990617005AF29B /* Data */,
 			);
 			path = Auth;
 			sourceTree = "<group>";
@@ -415,9 +467,10 @@
 		BC8A85632A9AAF6D00E08224 /* Artist */ = {
 			isa = PBXGroup;
 			children = (
+				BC570F9E2B377CA3007FD1BE /* DI */,
 				BC845E722AAAD88C0028F950 /* UI */,
-				BC6987902AA0501F0091A902 /* Data */,
 				BC8A85642A9AAF9100E08224 /* Domain */,
+				BC6987902AA0501F0091A902 /* Data */,
 			);
 			path = Artist;
 			sourceTree = "<group>";
@@ -434,6 +487,7 @@
 		BC8A85672A9AAFA300E08224 /* Album */ = {
 			isa = PBXGroup;
 			children = (
+				BC570FA12B377E9C007FD1BE /* DI */,
 				BCA4C5D32AEB455D0091E599 /* UI */,
 				BC8A85682A9AAFE700E08224 /* Domain */,
 				BCA4C5DE2AEB5CC70091E599 /* Data */,
@@ -539,6 +593,7 @@
 		BCE55FA42A9901DD005AF29B /* Home */ = {
 			isa = PBXGroup;
 			children = (
+				BC570F982B3777D8007FD1BE /* DI */,
 				BCE55FA72A990227005AF29B /* UI */,
 				BC8A85602A9AAE5500E08224 /* Domain */,
 				BCE8D4422A9DA57D003259BF /* Data */,
@@ -786,6 +841,7 @@
 				BCA4C5D92AEB59ED0091E599 /* AlbumStore.swift in Sources */,
 				BC080BB42B16406000830032 /* AnySpotifyItemRowView.swift in Sources */,
 				BCAEF72D2A9DA94C0095FD7C /* HomeUiModels.swift in Sources */,
+				BC570F9D2B3779FA007FD1BE /* ProfileInjector.swift in Sources */,
 				BCE8D4442A9DA5A5003259BF /* HomeMiddleware.swift in Sources */,
 				BCEFD1E52B1293B60060D555 /* SearchUiModels.swift in Sources */,
 				BC51498D2AAB854E00C6E0A3 /* ProfileRemoteDataSource.swift in Sources */,
@@ -807,7 +863,9 @@
 				BCA4C5E32AEB5D060091E599 /* AlbumRemoteDataSource.swift in Sources */,
 				BC6321A72AE61FA200EC126A /* Image+Extension.swift in Sources */,
 				BC8A856A2A9AAFFA00E08224 /* AlbumModels.swift in Sources */,
+				BC570FA02B377CAD007FD1BE /* ArtistInjector.swift in Sources */,
 				BC5149922AAB864700C6E0A3 /* ProfileRepository.swift in Sources */,
+				BC570FA32B377EB0007FD1BE /* AlbumInjector.swift in Sources */,
 				BCE55FC22A9936FD005AF29B /* WebView.swift in Sources */,
 				BC749E912A98628D0070322A /* APICaller.swift in Sources */,
 				BCAEF7302A9DAB5D0095FD7C /* HomeRemoteDataSource.swift in Sources */,
@@ -824,6 +882,7 @@
 				BC845E782AAADB6C0028F950 /* ArtistUiModels.swift in Sources */,
 				BC69879A2AA05B8A0091A902 /* HomeRepository.swift in Sources */,
 				BCE55FB82A991C8D005AF29B /* AuthLocalDataSource.swift in Sources */,
+				BC570F9A2B3777E6007FD1BE /* HomeInjector.swift in Sources */,
 				BC845E762AAAD8B40028F950 /* ArtistDetailView.swift in Sources */,
 				BC8DC7782AF0442E00BB16B4 /* AlbumTrackView.swift in Sources */,
 				BC845E7A2AAAE3080028F950 /* ArtistUseCase.swift in Sources */,
@@ -853,6 +912,7 @@
 				BC6987962AA054380091A902 /* ArtistRepository.swift in Sources */,
 				BCA4C5E02AEB5CE30091E599 /* AlbumRepository.swift in Sources */,
 				BCEFD1D62B127E7A0060D555 /* SearchView.swift in Sources */,
+				BC570F972B3772C8007FD1BE /* AuthInjector.swift in Sources */,
 				BC1875282B1D7A2A0080708D /* ProfileUiModels.swift in Sources */,
 				BC5149882AAB828800C6E0A3 /* ArtistMiddleware.swift in Sources */,
 				BCEFD1DD2B1284550060D555 /* SearchModels.swift in Sources */,

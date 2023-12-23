@@ -7,14 +7,7 @@
 
 import Foundation
 
-protocol ArtistRemote {
-    func fetchArtist(accessToken: String, id: String) async throws -> Artist
-    func fetchSeveralArtists(accessToken: String, ids: [String]) async throws -> SeveralArtistsResponse
-    func fetchRelatedArtists(accessToken: String, id: String) async throws -> SeveralArtistsResponse
-    func fetchArtistTopTracks(accessToken: String, artistId: String) async throws -> ArtistTopTracksResponse
-}
-
-struct ArtistRemoteDataSource: ArtistRemote {
+class ArtistRemoteDataSource {
     
     func fetchArtist(accessToken: String, id: String) async throws -> Artist {
         let request = buildFetchArtistRequest(accessToken: accessToken, id: id)

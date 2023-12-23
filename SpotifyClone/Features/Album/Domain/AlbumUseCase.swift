@@ -7,10 +7,18 @@
 
 import Foundation
 
-struct AlbumUseCase {
+class AlbumUseCase {
     
-    private let albumRepository = AlbumRepository()
-    private let artistRepository = ArtistRepository()
+    private let albumRepository: AlbumRepository
+    private let artistRepository: ArtistRepository
+    
+    init(
+        albumRepository: AlbumRepository,
+        artistRepository: ArtistRepository
+    ) {
+        self.albumRepository = albumRepository
+        self.artistRepository = artistRepository
+    }
     
     func fetchAlbum(accessToken: String, id: String) async throws -> Album {
         var album = try await albumRepository.fetchAlbum(

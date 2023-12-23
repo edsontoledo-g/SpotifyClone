@@ -9,7 +9,11 @@ import Foundation
 
 class ProfileUseCase {
     
-    private let profileRepository = ProfileRepository()
+    private let profileRepository: ProfileRepository
+    
+    init(profileRepository: ProfileRepository) {
+        self.profileRepository = profileRepository
+    }
     
     func fetchProfile(accessToken: String) async throws -> Profile {
         try await profileRepository.fetchProfile(accessToken: accessToken)

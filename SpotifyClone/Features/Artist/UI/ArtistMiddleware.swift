@@ -8,10 +8,15 @@
 import Foundation
 import UnidirectionalFlow
 
-struct ArtistMiddleware: Middleware {
+class ArtistMiddleware: Middleware {
     
-    private let artistUseCase = ArtistUseCase()
-    private let profileUseCase = ProfileUseCase()
+    private let artistUseCase: ArtistUseCase
+    private let profileUseCase: ProfileUseCase
+    
+    init() {
+        artistUseCase = ArtistInjector.provideArtistUseCase()
+        profileUseCase = ProfileInjector.provideProfileUseCase()
+    }
     
     func process(state: ArtistState, with action: ArtistAction) async -> ArtistAction? {
         switch action {

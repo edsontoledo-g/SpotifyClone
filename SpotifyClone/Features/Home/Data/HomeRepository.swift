@@ -7,9 +7,13 @@
 
 import Foundation
 
-struct HomeRepository {
+class HomeRepository {
     
-    private let homeRemote = HomeRemoteDataSource()
+    private let homeRemoteDataSource: HomeRemoteDataSource
+    
+    init(homeRemoteDataSource: HomeRemoteDataSource) {
+        self.homeRemoteDataSource = homeRemoteDataSource
+    }
     
     func fetchUserTopItems<T: Decodable>(
         accessToken: String,
@@ -17,7 +21,7 @@ struct HomeRepository {
         limit: Int,
         offset: Int
     ) async throws -> T {
-        try await homeRemote.fetchUserTopItems(
+        try await homeRemoteDataSource.fetchUserTopItems(
             accessToken: accessToken,
             type: type,
             limit: limit,
@@ -31,7 +35,7 @@ struct HomeRepository {
         after: String?,
         before: String?
     ) async throws -> RecentlyPlayedTracksResponse {
-        try await homeRemote.fetchRecentlyPlayedTracks(
+        try await homeRemoteDataSource.fetchRecentlyPlayedTracks(
             accessToken: accessToken,
             limit: limit,
             after: after,

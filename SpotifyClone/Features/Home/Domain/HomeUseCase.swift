@@ -7,10 +7,18 @@
 
 import Foundation
 
-struct HomeUseCase {
+class HomeUseCase {
     
-    private let homeRepository = HomeRepository()
-    private let artistRepository = ArtistRepository()
+    private let homeRepository: HomeRepository
+    private let artistRepository: ArtistRepository
+    
+    init(
+        homeRepository: HomeRepository, 
+        artistRepository: ArtistRepository
+    ) {
+        self.homeRepository = homeRepository
+        self.artistRepository = artistRepository
+    }
     
     func fetchUserTopArtists(
         accessToken: String,

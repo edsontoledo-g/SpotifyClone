@@ -7,9 +7,13 @@
 
 import Foundation
 
-struct AuthUseCase {
+class AuthUseCase {
     
-    private let authRepository = AuthRepository()
+    private let authRepository: AuthRepository
+    
+    init(authRepository: AuthRepository) {
+        self.authRepository = authRepository
+    }
     
     var dateFormatter: DateFormatter {
         let dateFormatter = DateFormatter()

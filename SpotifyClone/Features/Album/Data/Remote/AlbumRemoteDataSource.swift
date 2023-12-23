@@ -7,11 +7,7 @@
 
 import Foundation
 
-protocol AlbumRemote {
-    func fetchAlbum(accessToken: String, id: String) async throws -> Album
-}
-
-struct AlbumRemoteDataSource: AlbumRemote {
+class AlbumRemoteDataSource {
     
     func fetchAlbum(accessToken: String, id: String) async throws -> Album {
         let request = buildFetchAlbumRequest(accessToken: accessToken, id: id)

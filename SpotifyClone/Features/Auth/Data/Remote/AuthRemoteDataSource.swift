@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct AuthRemoteDataSource {
+class AuthRemoteDataSource {
     
     func fetchAccessTokenData(with code: String) async throws -> AccessTokenResponse {
         let request = buildFetchAccessTokenDataRequest(with: code)

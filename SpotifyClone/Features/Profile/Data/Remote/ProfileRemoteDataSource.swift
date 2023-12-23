@@ -7,12 +7,7 @@
 
 import Foundation
 
-protocol ProfileRemote {
-    func fetchProfile(accessToken: String) async throws -> Profile
-    func fetchIsFollowingArtist(accessToken: String, id: String) async throws -> Bool
-}
-
-class ProfileRemoteDataSource: ProfileRemote {
+class ProfileRemoteDataSource {
     
     func fetchProfile(accessToken: String) async throws -> Profile {
         let request = buildFetchProfileRequest(accessToken: accessToken)

@@ -9,13 +9,17 @@ import Foundation
 
 class ProfileRepository {
     
-    private let profileRemote = ProfileRemoteDataSource()
+    private let profileRemoteDataSource: ProfileRemoteDataSource
+    
+    init(profileRemoteDataSource: ProfileRemoteDataSource) {
+        self.profileRemoteDataSource = profileRemoteDataSource
+    }
     
     func fetchProfile(accessToken: String) async throws -> Profile {
-        try await profileRemote.fetchProfile(accessToken: accessToken)
+        try await profileRemoteDataSource.fetchProfile(accessToken: accessToken)
     }
     
     func fetchIsFollowingArtist(accessToken: String, id: String) async throws -> Bool {
-        try await profileRemote.fetchIsFollowingArtist(accessToken: accessToken, id: id)
+        try await profileRemoteDataSource.fetchIsFollowingArtist(accessToken: accessToken, id: id)
     }
 }

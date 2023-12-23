@@ -7,11 +7,15 @@
 
 import Foundation
 
-struct AlbumRepository {
+class AlbumRepository {
     
-    private let albumRemote = AlbumRemoteDataSource()
+    private let albumRemoteDataSource: AlbumRemoteDataSource
+    
+    init(albumRemoteDataSource: AlbumRemoteDataSource) {
+        self.albumRemoteDataSource = albumRemoteDataSource
+    }
     
     func fetchAlbum(accessToken: String, id: String) async throws -> Album {
-        try await albumRemote.fetchAlbum(accessToken: accessToken, id: id)
+        try await albumRemoteDataSource.fetchAlbum(accessToken: accessToken, id: id)
     }
 }

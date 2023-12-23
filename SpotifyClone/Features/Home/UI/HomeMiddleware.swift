@@ -8,10 +8,15 @@
 import Foundation
 import UnidirectionalFlow
 
-struct HomeMiddleware: Middleware {
+class HomeMiddleware: Middleware {
     
-    private let homeUseCase = HomeUseCase()
-    private let profileUseCase = ProfileUseCase()
+    private let homeUseCase: HomeUseCase
+    private let profileUseCase: ProfileUseCase
+    
+    init() {
+        homeUseCase = HomeInjector.provideHomeUseCase()
+        profileUseCase = ProfileInjector.provideProfileUseCase()
+    }
     
     func process(state: HomeState, with action: HomeAction) async -> HomeAction? {
         switch action {

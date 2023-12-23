@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct AuthLocalDataSource {
+class AuthLocalDataSource {
     
     enum Constants {
         static let accessTokenKey = "accessToken"
