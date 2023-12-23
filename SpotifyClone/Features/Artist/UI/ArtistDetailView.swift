@@ -40,7 +40,7 @@ struct ArtistDetailView: View {
                 .padding()
             }
         }
-        .showOrHide(!artistStore.isLoading)
+        .showOrHide(artistStore.artistUi.hasLoaded())
         .background(.primaryBackground)
         .overlay(alignment: .topLeading) {
             BackButton()

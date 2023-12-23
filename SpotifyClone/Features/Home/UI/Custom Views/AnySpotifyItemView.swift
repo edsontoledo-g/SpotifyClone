@@ -58,6 +58,8 @@ struct AnySpotifyItemView: View {
             router.navigate(to: .artistDetail(id: item.id))
         case .track:
             router.navigate(to: .albumDetail(id: item.id))
+        default:
+            break
         }
     }
 }

@@ -7,19 +7,19 @@
 
 import Foundation
 
-struct Profile: Decodable {
+struct Profile: Codable {
     var id: String
     var displayName: String
     var email: String
     var followers: Followers
     var images: [Image]
     
-    struct Followers: Decodable {
+    struct Followers: Codable {
         var href: String?
         var total: Int
     }
     
-    struct Image: Decodable {
+    struct Image: Codable {
         var url: String
         var width: Int?
         var height: Int?

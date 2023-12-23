@@ -12,7 +12,7 @@ enum SearchItemType: String, CaseIterable {
     case album
 }
 
-struct SearchItemsResponse: Decodable {
+struct SearchItemsResponse: Codable {
     var albums: AlbumResponse
     var artists: ArtistsResponse
 }

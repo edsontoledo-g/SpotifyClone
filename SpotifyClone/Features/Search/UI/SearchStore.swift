@@ -16,20 +16,27 @@ struct SearchState: Equatable {
 }
 
 enum SearchAction: Equatable {
+    case getRecentSearches
+    case addRecentSearch(item: AnySpotifyItemUi)
+    case deleteRecentSearch(item: AnySpotifyItemUi)
     case searchItems(accessToken: String, query: String)
     case setResults(searchUi: SearchUi)
 }
 
-struct SearchReducer: Reducer {
+class SearchReducer: Reducer {
     
     func reduce(oldState: SearchState, with action: SearchAction) -> SearchState {
         var state = oldState
         switch action {
+        case .getRecentSearches:
+            state.isLoading = true
         case .searchItems:
             state.isLoading = true
         case .setResults(let searchUi):
             state.searchUi = searchUi
             state.isLoading = false
+        default:
+            break
         }
         return state
     }

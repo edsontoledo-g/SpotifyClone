@@ -6,16 +6,17 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct SearchView: View {
     
     @Environment(AuthStore.self) private var authStore
+    @Environment(Router.self) private var router
     @State private var searchStore = SearchStore(
         state: .init(),
         reducer: SearchReducer(),
         middlewares: [SearchMiddleware()]
     )
-    @Environment(Router.self) private var router
     @State private var isSearchBarFocused = false
     @State private var query = ""
     
@@ -62,12 +63,43 @@ struct SearchView: View {
     
     @ViewBuilder private func contentView() -> some View {
         if isSearchBarFocused {
-            ForEach(searchStore.searchUi.items) { item in
-                AnySpotifyItemRowView(item: item)
+            suggestionsView()
+        } else {
+            recentSearchesView()
+        }
+    }
+    
+    @ViewBuilder private func suggestionsView() -> some View {
+        if !query.isEmpty {
+            ForEach(searchStore.searchUi.suggestions) { item in
+                AnySpotifyItemRowView(item: item, itemPressedCompletion: itemPressed)
                     .frame(height: 56.0)
             }
         } else {
-            EmptyView()
+            ContentUnavailableView(label: {
+                Label("No Suggestions", systemImage: "list.bullet.rectangle.portrait")
+            }, description: {
+                Text("Start typing something to show you results")
+            })
+        }
+    }
+    
+    @ViewBuilder private func recentSearchesView() -> some View {
+        if searchStore.searchUi.hasRecentSearches() {
+            ForEach(searchStore.searchUi.recentSearches) { item in
+                AnySpotifyItemRowView(
+                    item: item,
+                    isDeletable: true,
+                    itemDeletedCompletion: deleteItemPressed
+                )
+                .frame(height: 56.0)
+            }
+        } else {
+            ContentUnavailableView(label: {
+                Label("No Recent Searches", systemImage: "list.bullet.rectangle.portrait")
+            }, description: {
+                Text("Start exploring your favorite artists and tracks")
+            })
         }
     }
     
@@ -86,8 +118,21 @@ struct SearchView: View {
         }
     }
     
+    private func itemPressed(_ item: AnySpotifyItemUi) {
+        Task {
+            await searchStore.send(.addRecentSearch(item: item))
+        }
+    }
+    
+    private func deleteItemPressed(_ item: AnySpotifyItemUi) {
+        Task {
+            await searchStore.send(.deleteRecentSearch(item: item))
+        }
+    }
+    
     private func loadSearch() async {
         await authStore.send(.getOrFetchAccessToken)
+        await searchStore.send(.getRecentSearches)
     }
     
     private func queryOnChangeHandler() {

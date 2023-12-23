@@ -7,41 +7,49 @@
 
 import Foundation
 
-struct ArtistsResponse: Decodable {
+struct ArtistsResponse: Codable {
     var items: [Artist]
 }
 
-struct Artist: Decodable, Hashable {
+struct Artist: Codable, Hashable {
     var id: String
     var name: String
     var images: [Image]?
     var followers: Followers?
     var genres: [String]?
     
-    struct Image: Decodable {
+    struct Image: Codable {
         var url: String
         var width: Int
         var height: Int
     }
     
-    struct Followers: Decodable {
+    struct Followers: Codable {
         var total: Int
     }
     
-    static func == (lhs: Artist, rhs: Artist) -> Bool {
-        lhs.id == rhs.id
+    private enum CodingKeys: CodingKey {
+        case id
+        case name
+        case images
+        case followers
+        case genres
     }
     
     func hash(into hasher: inout Hasher) {
         hasher.combine(id)
     }
+    
+    static func == (lhs: Artist, rhs: Artist) -> Bool {
+        lhs.id == rhs.id
+    }
 }
 
-struct SeveralArtistsResponse: Decodable {
-    var artists: [Artist]
+class SeveralArtistsResponse: Codable {
+    let artists: [Artist]
 }
 
-struct ArtistTopTracksResponse: Decodable {
+struct ArtistTopTracksResponse: Codable {
     var tracks: [Track]
 }
 

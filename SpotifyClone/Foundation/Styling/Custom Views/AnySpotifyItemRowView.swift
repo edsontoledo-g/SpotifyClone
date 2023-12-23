@@ -11,6 +11,9 @@ struct AnySpotifyItemRowView: View {
     
     @Environment(Router.self) private var router
     var item: AnySpotifyItemUi
+    var isDeletable: Bool = false
+    var itemPressedCompletion: ((AnySpotifyItemUi) -> Void)?
+    var itemDeletedCompletion: ((AnySpotifyItemUi) -> Void)?
     
     var body: some View {
         HStack(spacing: 8.0) {
@@ -27,9 +30,10 @@ struct AnySpotifyItemRowView: View {
                     .foregroundStyle(.secondary)
             }
             Spacer()
-            Image(systemName: "chevron.right")
+            Image(systemName: isDeletable ? "xmark" : "chevron.right")
                 .fontWeight(.semibold)
                 .foregroundStyle(.secondary)
+                .onTapGesture(perform: deleteButtonPressed)
         }
         .onTapGesture(perform: itemPressed)
     }
@@ -61,12 +65,20 @@ struct AnySpotifyItemRowView: View {
     }
     
     private func itemPressed() {
+        itemPressedCompletion?(item)
         switch item.type {
         case .track:
             router.navigate(to: .albumDetail(id: item.id))
         case .artist:
             router.navigate(to: .artistDetail(id: item.id))
+        default:
+            break
         }
+    }
+    
+    private func deleteButtonPressed() {
+        guard isDeletable else { return }
+        itemDeletedCompletion?(item)
     }
 }
 

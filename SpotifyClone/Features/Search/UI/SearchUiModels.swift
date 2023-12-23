@@ -8,13 +8,21 @@
 import Foundation
 
 struct SearchUi: Equatable, Hashable {
-    var suggestions: [String] = []
-    var items: [AnySpotifyItemUi] = []
+    var recentSearches: [AnySpotifyItemUi] = []
+    var suggestions: [AnySpotifyItemUi] = []
 }
 
 extension SearchUi {
     
-    func hasLoaded() -> Bool {
-        !items.isEmpty
+    func hasSuggestions() -> Bool {
+        !suggestions.isEmpty
+    }
+    
+    func hasRecentSearches() -> Bool {
+        !recentSearches.isEmpty
+    }
+    
+    func hasRecentSearch(with id: String) -> Bool {
+        recentSearches.contains { $0.id == id }
     }
 }

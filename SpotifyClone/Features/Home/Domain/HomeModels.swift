@@ -12,28 +12,30 @@ typealias AlbumsAndArtists = (albums: [Album], artists: [Artist])
 enum SpotifyItemType: String {
     case track = "tracks"
     case artist = "artists"
+    case unknown
     
     var name: String {
         switch self {
         case .track: "Track"
         case .artist: "Artist"
+        default: ""
         }
     }
 }
 
-struct RecentlyPlayedTracksResponse: Decodable {
+struct RecentlyPlayedTracksResponse: Codable {
     var items: [RecentlyPlayedTracks]
 }
 
-struct RecentlyPlayedTracks: Decodable {
+struct RecentlyPlayedTracks: Codable {
     var track: Track
 }
 
-struct TrackResponse: Decodable {
+struct TrackResponse: Codable {
     var items: [Track]
 }
 
-struct Track: Decodable {
+struct Track: Codable {
     var id: String
     var name: String
     var album: Album?

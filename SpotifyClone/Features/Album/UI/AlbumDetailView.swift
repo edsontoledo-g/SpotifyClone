@@ -44,7 +44,7 @@ struct AlbumDetailView: View {
                 infoView()
             }
         }
-        .showOrHide(!albumStore.isLoading)
+        .showOrHide(albumStore.albumUi.hasLoaded())
         .background(.primaryBackground)
         .overlay(alignment: .topLeading) {
             BackButton()

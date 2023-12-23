@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct SearchRemoteDataSource {
+class SearchRemoteDataSource {
     
     func searchItems(accessToken: String, query: String) async throws -> SearchItemsResponse {
         let request = buildSearchItemsRequest(accessToken: accessToken, query: query)

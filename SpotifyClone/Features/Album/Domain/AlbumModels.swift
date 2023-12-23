@@ -7,15 +7,15 @@
 
 import Foundation
 
-struct AlbumResponse: Decodable {
+struct AlbumResponse: Codable {
     var items: [Album]
 }
 
-struct AlbumTracksResponse: Decodable {
+struct AlbumTracksResponse: Codable {
     var items: [Track]
 }
 
-struct Album: Decodable {
+struct Album: Codable {
     var id: String
     var name: String
     var images: [Image]
@@ -27,7 +27,7 @@ struct Album: Decodable {
         tracks?.items.reduce(0, { $0 + ($1.durationMs / 1000) })
     }
     
-    struct Image: Decodable {
+    struct Image: Codable {
         var url: String
         var width: Int
         var height: Int

@@ -41,7 +41,7 @@ struct HomeView: View {
             .safeAreaInset(edge: .top) {
                 headerView()
             }
-            .showOrHide(!homeStore.isLoading)
+            .showOrHide(homeStore.homeUi.hasLoaded())
             .background(.primaryBackground)
             .navigationDestination(
                 for: Router.Destination.self,
