@@ -14,10 +14,17 @@ enum ProfileInjector {
     }
     
     private static func provideProfileRepository() -> ProfileRepository {
-        ProfileRepository(profileRemoteDataSource: provideProfileRemoteDataSource())
+        ProfileRepository(
+            profileRemoteDataSource: provideProfileRemoteDataSource(),
+            profileLocalDataSource: provideLocalDataSource()
+        )
     }
     
     private static func provideProfileRemoteDataSource() -> ProfileRemoteDataSource {
         ProfileRemoteDataSource()
+    }
+    
+    private static func provideLocalDataSource() -> ProfileLocalDataSource {
+        ProfileLocalDataSource(modelContainer: DataInjector.provideModelContainer())
     }
 }

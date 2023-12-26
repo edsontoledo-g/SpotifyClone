@@ -29,12 +29,18 @@ struct AnySpotifyItemView: View {
     }
     
     @ViewBuilder func imageView(from image: Image) -> some View {
-        if item.type == .artist {
+        switch item.type {
+        case .artist:
             image
                 .resizable()
                 .aspectRatio(1.0, contentMode: .fit)
                 .clipShape(Circle())
-        } else {
+        case .show:
+            image
+                .resizable()
+                .aspectRatio(1.0, contentMode: .fit)
+                .clipShape(RoundedRectangle(cornerRadius: 8.0))
+        default:
             image
                 .resizable()
                 .aspectRatio(1.0, contentMode: .fit)
@@ -58,6 +64,8 @@ struct AnySpotifyItemView: View {
             router.navigate(to: .artistDetail(id: item.id))
         case .track:
             router.navigate(to: .albumDetail(id: item.id))
+        case .show:
+            router.navigate(to: .showDetail(id: item.id))
         default:
             break
         }

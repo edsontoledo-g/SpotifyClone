@@ -78,4 +78,17 @@ class HomeUseCase {
         )
         return relatedArtistsResponse.artists
     }
+    
+    func fetchUserSavedShows(
+        accessToken: String,
+        limit: Int = 10,
+        offset: Int = 0
+    ) async throws -> [Show] {
+        let userSavedShows = try await homeRepository.fetchUserSavedShows(
+            accessToken: accessToken,
+            limit: limit,
+            offset: offset
+        )
+        return userSavedShows.asShows()
+    }
 }

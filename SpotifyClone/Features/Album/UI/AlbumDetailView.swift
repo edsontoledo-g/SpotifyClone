@@ -118,8 +118,8 @@ struct AlbumDetailView: View {
                             statsActionPressed(statsAction)
                         }
                     }
+                    .buttonStyle(SecondaryButtonStyle())
                 }
-                .buttonStyle(SecondaryButtonStyle())
                 Spacer()
                 Button("", systemImage: "shuffle") {}
                     .buttonStyle(SecondaryButtonStyle())
@@ -133,7 +133,7 @@ struct AlbumDetailView: View {
         VStack(alignment: .leading, spacing: 16.0) {
             VStack(alignment: .leading) {
                 Text(albumStore.albumUi.releaseDate)
-                Text("\(albumStore.albumUi.getNumberOfTracks()) tracks - \(albumStore.albumUi.getDurationTimeFormatted())")
+                Text("\(albumStore.albumUi.getNumberOfTracks()) tracks - \(albumStore.albumUi.durationTime)")
             }
             .font(.system(size: 13.0, weight: .medium))
             ForEach(albumStore.albumUi.artists, id: \.id) { artist in

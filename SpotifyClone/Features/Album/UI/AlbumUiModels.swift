@@ -59,18 +59,6 @@ extension AlbumUi {
             return partialResult + albumSectionUi.items.count
         }
     }
-    
-    func getDurationTimeFormatted() -> String {
-        let durationTime = Int(durationTime) ?? .zero
-        let hours = durationTime / 3600
-        let minutes = (durationTime % 3600) / 60
-        let seconds = (durationTime % 3600) % 60
-        if hours == .zero {
-            return "\(minutes) min \(seconds) sec"
-        } else {
-            return "\(hours) h \(minutes) min"
-        }
-    }
 }
 
 extension AlbumSectionUi {

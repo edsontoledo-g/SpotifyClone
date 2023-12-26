@@ -12,6 +12,7 @@ import SwiftUI
     enum Destination: Hashable {
         case artistDetail(id: String)
         case albumDetail(id: String)
+        case showDetail(id: String)
     }
     
     var navigationPath = NavigationPath()

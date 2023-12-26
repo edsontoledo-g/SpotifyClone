@@ -12,12 +12,14 @@ typealias AlbumsAndArtists = (albums: [Album], artists: [Artist])
 enum SpotifyItemType: String {
     case track = "tracks"
     case artist = "artists"
+    case show
     case unknown
     
     var name: String {
         switch self {
         case .track: "Track"
         case .artist: "Artist"
+        case .show: "Show"
         default: ""
         }
     }

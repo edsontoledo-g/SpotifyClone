@@ -11,17 +11,32 @@ import UnidirectionalFlow
 class SearchMiddleware: Middleware {
     
     private let searchUseCase: SearchUseCase
+    private let profileUseCase: ProfileUseCase
     
     init() {
         searchUseCase = SearchInjector.provideSearchUseCase()
+        profileUseCase = ProfileInjector.provideProfileUseCase()
     }
     
     func process(state: SearchState, with action: SearchAction) async -> SearchAction? {
         switch action {
-        case .getRecentSearches:
-            let recentSearches = await searchUseCase.getRecentSearches()
-            let searchUi = handleGetRecentSearchesSuccess(recentSearches)
-            return .setResults(searchUi: searchUi)
+        case .loadSearch(let accessToken):
+            async let userProfileCall = try profileUseCase.getOrFetchProfile(accessToken: accessToken)
+            async let recentSearchesCall = await searchUseCase.getRecentSearches()
+            do {
+                let (
+                    userProfile,
+                    recentSearches
+                ) = try await (
+                    userProfileCall,
+                    recentSearchesCall
+                )
+                var searchUi = handleGetOrFetchUserSuccess(userProfile)
+                searchUi = handleGetRecentSearchesSuccess(searchUi, recentSearches)
+                return .setResults(searchUi: searchUi)
+            } catch {
+                return nil
+            }
         case .addRecentSearch(let item):
             guard !state.searchUi.hasRecentSearch(with: item.id) else { return nil }
             await searchUseCase.saveRecentSearch(
@@ -52,23 +67,29 @@ class SearchMiddleware: Middleware {
 
 extension SearchMiddleware {
     
-    func handleGetRecentSearchesSuccess(_ artistsModel: [RecentSearch]) -> SearchUi {
-        SearchUi(recentSearches: artistsModel.asAnySpotifyItemsUi())
+    private func handleGetOrFetchUserSuccess(_ profile: Profile) -> SearchUi {
+        SearchUi(profileUi: profile.asProfileUi())
     }
     
-    func handleAddRecentSearchSuccess(_ searchUi: SearchUi, _ item: AnySpotifyItemUi) -> SearchUi {
+    private func handleGetRecentSearchesSuccess(_ searchUi: SearchUi, _ recentSearches: [RecentSearch]) -> SearchUi {
+        var searchUi = searchUi
+        searchUi.recentSearches = recentSearches.asAnySpotifyItemsUi()
+        return searchUi
+    }
+    
+    private func handleAddRecentSearchSuccess(_ searchUi: SearchUi, _ item: AnySpotifyItemUi) -> SearchUi {
         var searchUi = searchUi
         searchUi.recentSearches.append(item)
         return searchUi
     }
     
-    func handleDeleteRecentSearchSuccess(_ searchUi: SearchUi, _ item: AnySpotifyItemUi) -> SearchUi {
+    private func handleDeleteRecentSearchSuccess(_ searchUi: SearchUi, _ item: AnySpotifyItemUi) -> SearchUi {
         var searchUi = searchUi
         searchUi.recentSearches.removeAll(where: { $0.id == item.id })
         return searchUi
     }
     
-    func handleSearchItemsSuccess(_ searchUi: SearchUi, _ items: AlbumsAndArtists) -> SearchUi {
+    private func handleSearchItemsSuccess(_ searchUi: SearchUi, _ items: AlbumsAndArtists) -> SearchUi {
         let (albums, artists) = items
         let items = zip(albums.asAnySpotifyItemUi(), artists.asAnySpotifyItemsUi())
         let shuffledItems = items.reduce([AnySpotifyItemUi]()) { partialResult, albumAndArtist in

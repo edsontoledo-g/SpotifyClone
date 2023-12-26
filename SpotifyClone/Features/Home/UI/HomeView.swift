@@ -17,37 +17,31 @@ struct HomeView: View {
         middlewares: [HomeMiddleware()]
     )
     @State private var selectedFilter: HeaderAction = .total
+    @State private var showMenu = false
     
     var body: some View {
         @Bindable var router = router
-        NavigationStack(path: $router.navigationPath) {
-            ScrollView {
-                VStack(spacing: 24.0) {
-                    ForEach(homeStore.homeUi.homeSectionsUi) { homeSectionUi in
-                        switch homeSectionUi.type {
-                        case .topTracks:
-                            TopTracksSectionView(homeSectionUi: homeSectionUi)
-                        case .recentlyPlayed:
-                            HorizontalHomeSectionView(homeSectionUi: homeSectionUi)
-                                .frame(height: 150.0)
-                        default:
-                            HorizontalHomeSectionView(homeSectionUi: homeSectionUi)
-                                .frame(height: 200.0)
-                        }
-                    }
+        ZStack {
+            NavigationStack(path: $router.navigationPath) {
+                ScrollView {
+                    contentView()
                 }
-                .padding(.bottom)
+                .safeAreaInset(edge: .top) {
+                    headerView()
+                }
+                .showOrHide(homeStore.homeUi.hasLoaded())
+                .background(.primaryBackground)
+                .navigationDestination(
+                    for: Router.Destination.self,
+                    destination: navigationDestinationHandler
+                )
+                .toolbar(.hidden)
+                .toolbar(showMenu ? .hidden : .visible, for: .tabBar)
             }
-            .safeAreaInset(edge: .top) {
-                headerView()
-            }
-            .showOrHide(homeStore.homeUi.hasLoaded())
-            .background(.primaryBackground)
-            .navigationDestination(
-                for: Router.Destination.self,
-                destination: navigationDestinationHandler
+            SlideMenuView(
+                showMenu: $showMenu,
+                profileUi: homeStore.homeUi.profileUi
             )
-            .toolbar(.hidden)
         }
         .overlay {
             if homeStore.isLoading {
@@ -58,6 +52,48 @@ struct HomeView: View {
         .onChange(of: authStore.showAuth, showAuthOnChangeHandler)
         .task { await loadHome() }
     }
+    
+    @ViewBuilder private func contentView() -> some View {
+        switch selectedFilter {
+        case .total:
+            homeView()
+        case .music:
+            EmptyView()
+        case .shows:
+            EmptyView()
+        case .yourYear:
+            EmptyView()
+        }
+    }
+    
+    
+    private func homeView() -> some View {
+        VStack(spacing: 24.0) {
+            ForEach(homeStore.filteredHomeUi.homeSectionsUi) { homeSectionUi in
+                switch homeSectionUi.type {
+                case .topTracks:
+                    TopTracksSectionView(homeSectionUi: homeSectionUi)
+                case .recentlyPlayed:
+                    HorizontalHomeSectionView(homeSectionUi: homeSectionUi)
+                        .frame(height: 150.0)
+                default:
+                    HorizontalHomeSectionView(homeSectionUi: homeSectionUi)
+                        .frame(height: 200.0)
+                }
+            }
+        }
+        .padding(.bottom)
+    }
+    
+    /*
+    private func musicView() -> some View {
+        
+    }
+    
+    private func showsView() -> some View {
+        
+    }
+     */
     
     private func headerView() -> some View {
         HStack {
@@ -71,6 +107,7 @@ struct HomeView: View {
                     .clipShape(Circle())
             }
             .frame(width: 32.0, height: 32.0)
+            .onTapGesture(perform: profilePressed)
             ScrollView(.horizontal, showsIndicators: false) {
                 HStack {
                     ForEach(HeaderAction.allCases, id: \.rawValue) { headerAction in
@@ -79,6 +116,9 @@ struct HomeView: View {
                             isSelected: selectedFilter == headerAction,
                             style: headerAction.style
                         )
+                        .onTapGesture {
+                            filterHome(headerAction)
+                        }
                     }
                 }
                 .padding(.trailing)
@@ -96,12 +136,36 @@ struct HomeView: View {
             ArtistDetailView(artistId: id)
         case .albumDetail(let id):
             AlbumDetailView(albumId: id)
+        case .showDetail(let id):
+            ShowDetailView(showId: id)
+        }
+    }
+    
+    private func profilePressed() {
+        withAnimation(.bouncy) {
+            showMenu = true
         }
     }
     
     private func loadHome() async {
         await authStore.send(.getOrFetchAccessToken)
         await homeStore.send(.loadHome(accessToken: authStore.accessToken))
+    }
+    
+    private func filterHome(_ filter: HeaderAction) {
+        selectedFilter = filter
+        Task {
+            switch selectedFilter {
+            case .total:
+                await homeStore.send(.removeFilter)
+            case .music:
+                await homeStore.send(.filterMusic)
+            case .shows:
+                await homeStore.send(.filterShows)
+            case .yourYear:
+                break
+            }
+        }
     }
     
     private func showAuthOnChangeHandler(oldValue: Bool, newValue: Bool) {
@@ -117,14 +181,14 @@ extension HomeView {
     enum HeaderAction: String, CaseIterable {
         case total
         case music
-        case podcasts
+        case shows
         case yourYear
         
         var name: String {
             switch self {
             case .total: "Total"
             case .music: "Music"
-            case .podcasts: "Podcasts"
+            case .shows: "Shows"
             case .yourYear: "Your year in Spotify"
             }
         }
@@ -133,7 +197,7 @@ extension HomeView {
             switch self {
             case .total: .plain
             case .music: .plain
-            case .podcasts: .plain
+            case .shows: .plain
             case .yourYear: .bordered(colors:  [.purple, .blue, .green, .red, .pink])
             }
         }

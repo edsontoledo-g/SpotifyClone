@@ -51,9 +51,9 @@ class ArtistMiddleware: Middleware {
                     relatedArtistsCall
                 )
                 var artistUi = handleFetchArtistSuccess(artist, isFollowingArtist: isFollowingArtist)
-                artistUi.artistSectionsUi.append(handleFetchArtistTopTracksSuccess(artistTopTracksAndAlbums.tracks))
-                artistUi.artistSectionsUi.append(handleFetchArtistTopAlbumsSuccess(artistTopTracksAndAlbums.albums))
-                artistUi.artistSectionsUi.append(handleFetchRelatedArtistsSuccess(relatedArtists))
+                artistUi = handleFetchArtistTopTracksSuccess(artistUi, artistTopTracksAndAlbums.tracks)
+                artistUi = handleFetchArtistTopAlbumsSuccess(artistUi, artistTopTracksAndAlbums.albums)
+                artistUi = handleFetchRelatedArtistsSuccess(artistUi, relatedArtists)
                 return .setResults(artistUi: artistUi)
             } catch {
                 return nil
@@ -70,30 +70,39 @@ extension ArtistMiddleware {
         artist.asArtistUi(isFollowing: isFollowingArtist)
     }
     
-    private func handleFetchArtistTopTracksSuccess(_ tracks: [Track]) -> ArtistSectionUi {
-        ArtistSectionUi(
+    private func handleFetchArtistTopTracksSuccess(_ artistUi: ArtistUi, _ tracks: [Track]) -> ArtistUi {
+        let artistSectionUi = ArtistSectionUi(
             id: 0,
             title: "Top",
             items: Array(tracks.asAnyArtistItemsUi().prefix(5)),
             type: .topTracks
         )
+        var artistUi = artistUi
+        artistUi.artistSectionsUi.append(artistSectionUi)
+        return artistUi
     }
     
-    private func handleFetchArtistTopAlbumsSuccess(_ albums: [Album]) -> ArtistSectionUi {
-        ArtistSectionUi(
+    private func handleFetchArtistTopAlbumsSuccess(_ artistUi: ArtistUi, _ albums: [Album]) -> ArtistUi {
+        let artistSectionUi = ArtistSectionUi(
             id: 1,
             title: "Top Albums",
             items: Array(albums.asAnyArtistItemUi().prefix(4)),
             type: .topReleases
         )
+        var artistUi = artistUi
+        artistUi.artistSectionsUi.append(artistSectionUi)
+        return artistUi
     }
     
-    private func handleFetchRelatedArtistsSuccess(_ artists: [Artist]) -> ArtistSectionUi {
-        ArtistSectionUi(
+    private func handleFetchRelatedArtistsSuccess(_ artistUi: ArtistUi, _ artists: [Artist]) -> ArtistUi {
+        let artistSectionUi = ArtistSectionUi(
             id: 2,
             title: "Related Artists",
             items: artists.asAnyArtistItemsUi(),
             type: .relatedArtists
         )
+        var artistUi = artistUi
+        artistUi.artistSectionsUi.append(artistSectionUi)
+        return artistUi
     }
 }

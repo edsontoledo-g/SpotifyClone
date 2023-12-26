@@ -40,6 +40,19 @@ class HomeRemoteDataSource {
         return try await APICaller.shared.callService(request: request)
     }
     
+    func fetchUserSavedShows(
+        accessToken: String,
+        limit: Int,
+        offset: Int
+    ) async throws -> UserSavedShowsResponse {
+        let request = buildFetchUserSavedShowsRequest(
+            accessToken: accessToken,
+            limit: limit,
+            offset: offset
+        )
+        return try await APICaller.shared.callService(request: request)
+    }
+    
     private func buildFetchUserTopItemsRequest(
         accessToken: String,
         type: SpotifyItemType,
@@ -70,6 +83,19 @@ class HomeRemoteDataSource {
             baseUrl: APIConstants.baseApiUrl,
             endpoint: "me/player/recently-played",
             queryParams: queryParams,
+            headers: [.authorization: "Bearer \(accessToken)"]
+        )
+    }
+    
+    private func buildFetchUserSavedShowsRequest(
+        accessToken: String,
+        limit: Int,
+        offset: Int
+    ) -> Request {
+        Request(
+            baseUrl: APIConstants.baseApiUrl,
+            endpoint: "me/shows",
+            queryParams: ["limit": "\(limit)", "offset": "\(offset)"],
             headers: [.authorization: "Bearer \(accessToken)"]
         )
     }

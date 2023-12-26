@@ -26,11 +26,11 @@ struct Profile: Codable {
     }
     
     private enum CodingKeys: String, CodingKey {
-        case id = "id"
+        case id
         case displayName = "display_name"
-        case email = "email"
-        case followers = "followers"
-        case images = "images"
+        case email
+        case followers
+        case images
     }
 }
 

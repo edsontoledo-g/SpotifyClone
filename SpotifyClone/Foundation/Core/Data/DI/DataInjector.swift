@@ -12,7 +12,10 @@ enum DataInjector {
     
     static func provideModelContainer() -> ModelContainer {
         do {
-            return try ModelContainer(for: RecentSearch.self)
+            return try ModelContainer(for: [
+                RecentSearch.self,
+                User.self
+            ])
         } catch {
             fatalError("Failed to create ModelContainer")
         }

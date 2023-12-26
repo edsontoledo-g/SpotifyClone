@@ -24,7 +24,7 @@ struct Album: Codable {
     var tracks: AlbumTracksResponse?
     
     var durationTime: Int? {
-        tracks?.items.reduce(0, { $0 + ($1.durationMs / 1000) })
+        tracks?.items.reduce(0, { $0 + ($1.durationMs) })
     }
     
     struct Image: Codable {
@@ -70,7 +70,7 @@ extension Album {
             name: name,
             image: images.first?.url ?? "",
             releaseDate: releaseDate ?? "",
-            durationTime: durationTime?.description ?? "",
+            durationTime: (durationTime ?? .zero).millisecondsToHoursMinutesAndSeconds(),
             artists: artists ?? []
         )
     }

@@ -26,10 +26,12 @@ struct CapsuleButton: View {
             .padding(.horizontal)
             .background(isSelected ? .spotifyGreen : .primaryGray)
             .clipShape(Capsule())
-            .overlay(
-                Capsule()
-                    .stroke(gradientView(), lineWidth: 2.0)
-            )
+            .overlay {
+                if !isSelected {
+                    Capsule()
+                        .stroke(gradientView(), lineWidth: 2.0)
+                }
+            }
             .padding(1.0)
     }
     

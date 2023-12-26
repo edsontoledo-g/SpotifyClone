@@ -28,14 +28,6 @@ struct Artist: Codable, Hashable {
         var total: Int
     }
     
-    private enum CodingKeys: CodingKey {
-        case id
-        case name
-        case images
-        case followers
-        case genres
-    }
-    
     func hash(into hasher: inout Hasher) {
         hasher.combine(id)
     }

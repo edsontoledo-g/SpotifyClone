@@ -8,6 +8,7 @@
 import Foundation
 
 struct SearchUi: Equatable, Hashable {
+    var profileUi: ProfileUi = ProfileUi()
     var recentSearches: [AnySpotifyItemUi] = []
     var suggestions: [AnySpotifyItemUi] = []
 }

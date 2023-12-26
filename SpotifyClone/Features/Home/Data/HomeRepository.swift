@@ -42,4 +42,16 @@ class HomeRepository {
             before: before
         )
     }
+    
+    func fetchUserSavedShows(
+        accessToken: String,
+        limit: Int,
+        offset: Int
+    ) async throws -> UserSavedShowsResponse {
+        try await homeRemoteDataSource.fetchUserSavedShows(
+            accessToken: accessToken,
+            limit: limit,
+            offset: offset
+        )
+    }
 }

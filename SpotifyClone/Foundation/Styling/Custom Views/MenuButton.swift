@@ -24,6 +24,7 @@ struct MenuButton: View {
             HStack {
                 Image(systemName: systemImage)
                     .foregroundStyle(.secondary)
+                    .frame(width: 24.0, height: 24.0)
                 Text(title)
                     .font(.system(size: 15.0, weight: .medium))
             }

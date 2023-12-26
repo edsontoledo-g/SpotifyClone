@@ -19,25 +19,33 @@ struct SearchView: View {
     )
     @State private var isSearchBarFocused = false
     @State private var query = ""
+    @State private var showMenu = false
     
     var body: some View {
         @Bindable var router = router
-        NavigationStack(path: $router.navigationPath) {
-            ScrollView {
-                VStack {
-                    contentView()
+        ZStack {
+            NavigationStack(path: $router.navigationPath) {
+                ScrollView {
+                    VStack {
+                        contentView()
+                    }
+                    .padding()
                 }
-                .padding()
+                .safeAreaInset(edge: .top) {
+                    headerView()
+                }
+                .background(.primaryBackground)
+                .navigationDestination(
+                    for: Router.Destination.self,
+                    destination: navigationDestinationHandler
+                )
+                .toolbar(.hidden)
+                .toolbar(showMenu ? .hidden : .visible, for: .tabBar)
             }
-            .safeAreaInset(edge: .top) {
-                headerView()
-            }
-            .background(.primaryBackground)
-            .navigationDestination(
-                for: Router.Destination.self,
-                destination: navigationDestinationHandler
+            SlideMenuView(
+                showMenu: $showMenu,
+                profileUi: searchStore.searchUi.profileUi
             )
-            .toolbar(.hidden)
         }
         .onChange(of: query, queryOnChangeHandler)
         .onChange(of: authStore.showAuth, showAuthOnChangeHandler)
@@ -48,17 +56,28 @@ struct SearchView: View {
         VStack {
             if !isSearchBarFocused {
                 HStack {
+                    AsyncImage(url: URL(string: searchStore.searchUi.profileUi.image)) { image in
+                        image
+                            .resizable()
+                            .aspectRatio(contentMode: .fill)
+                            .clipShape(Circle())
+                    } placeholder: {
+                        Color.primaryGray.opacity(0.5)
+                            .clipShape(Circle())
+                    }
+                    .frame(width: 32.0, height: 32.0)
+                    .onTapGesture(perform: profilePressed)
                     Text("Search")
                         .font(.system(size: 24.0, weight: .bold))
                 }
                 .frame(maxWidth: .infinity, alignment: .leading)
             }
             SearchBarView(isFocused: $isSearchBarFocused, query: $query)
+                .onTapGesture(perform: searchBarPressed)
         }
         .padding()
         .frame(maxWidth: .infinity)
         .background(.thickMaterial)
-        .onTapGesture(perform: searchBarPressed)
     }
     
     @ViewBuilder private func contentView() -> some View {
@@ -109,12 +128,20 @@ struct SearchView: View {
             ArtistDetailView(artistId: id)
         case .albumDetail(let id):
             AlbumDetailView(albumId: id)
+        case .showDetail(let id):
+            ShowDetailView(showId: id)
         }
     }
     
     private func searchBarPressed() {
         withAnimation(.easeInOut) {
             isSearchBarFocused = true
+        }
+    }
+    
+    private func profilePressed() {
+        withAnimation(.bouncy) {
+            showMenu = true
         }
     }
     
@@ -132,7 +159,7 @@ struct SearchView: View {
     
     private func loadSearch() async {
         await authStore.send(.getOrFetchAccessToken)
-        await searchStore.send(.getRecentSearches)
+        await searchStore.send(.loadSearch(accessToken: authStore.accessToken))
     }
     
     private func queryOnChangeHandler() {

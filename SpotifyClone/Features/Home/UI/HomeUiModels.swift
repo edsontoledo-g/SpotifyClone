@@ -31,6 +31,15 @@ struct HomeSectionUi: Identifiable, Equatable, Hashable {
         case recentlyPlayed
         case topArtists
         case relatedArtists
+        case savedShows
+        
+        func isMusic() -> Bool {
+            self != .savedShows
+        }
+        
+        func isShow() -> Bool {
+            self == .savedShows
+        }
     }
 }
 

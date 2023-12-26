@@ -27,7 +27,24 @@ import SwiftData
     }
 }
 
-
+@Model class User {
+    var id: String
+    var name: String
+    var email: String
+    var image: String
+    
+    init(
+        id: String,
+        name: String,
+        email: String,
+        image: String
+    ) {
+        self.id = id
+        self.name = name
+        self.email = email
+        self.image = image
+    }
+}
 
 extension RecentSearch {
     
@@ -45,5 +62,18 @@ extension Array where Element == RecentSearch {
     
     func asAnySpotifyItemsUi() -> [AnySpotifyItemUi] {
         map { $0.asAnySpotifyItemUi() }
+    }
+}
+
+extension User {
+    
+    func asProfile() -> Profile {
+        Profile(
+            id: id,
+            displayName: name,
+            email: email,
+            followers: .init(total: .zero),
+            images: [.init(url: image)]
+        )
     }
 }
