@@ -13,15 +13,12 @@ typealias HomeStore = Store<HomeState, HomeAction>
 struct HomeState: Equatable {
     var isLoading: Bool = true
     var homeUi: HomeUi = HomeUi()
-    var filteredHomeUi = HomeUi()
 }
 
 enum HomeAction: Equatable {
     case loadHome(accessToken: String)
-    case removeFilter
-    case filterMusic
-    case filterShows
-    case setResults(homeUi: HomeUi, filteredHomeUi: HomeUi)
+    case loadShows(accessToken: String)
+    case setResults(homeUi: HomeUi)
 }
 
 struct HomeReducer: Reducer {
@@ -31,12 +28,11 @@ struct HomeReducer: Reducer {
         switch action {
         case .loadHome:
             state.isLoading = true
-        case .setResults(let homeUi, let filteredHomeUi):
+        case .loadShows:
+            state.isLoading = true
+        case .setResults(let homeUi):
             state.homeUi = homeUi
-            state.filteredHomeUi = filteredHomeUi
             state.isLoading = false
-        default:
-            break
         }
         return state
     }

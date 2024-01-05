@@ -28,7 +28,7 @@ struct HorizontalHomeSectionView: View {
     @ViewBuilder private func headerView() -> some View {
         if let relatedItem = homeSectionUi.relatedItem {
             HStack {
-                AsyncImage(url: URL(string: relatedItem.image)) { image in
+                CacheAsyncImage(url: URL(string: relatedItem.image)) { image in
                     image
                         .resizable()
                         .aspectRatio(contentMode: .fill)

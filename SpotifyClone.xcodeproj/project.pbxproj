@@ -21,6 +21,8 @@
 		BC3FBD692AEC696D00014436 /* ButtonStyles.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC3FBD682AEC696D00014436 /* ButtonStyles.swift */; };
 		BC3FBD6B2AEC76D500014436 /* MenuButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC3FBD6A2AEC76D500014436 /* MenuButton.swift */; };
 		BC40FAFB2AE73B7700B85920 /* ArtistMoreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC40FAFA2AE73B7700B85920 /* ArtistMoreView.swift */; };
+		BC50E41D2B3B9D0A0047FE57 /* AnySpotifyCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC50E41C2B3B9D0A0047FE57 /* AnySpotifyCardView.swift */; };
+		BC50E4202B3B9FF80047FE57 /* CacheAsyncImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC50E41F2B3B9FF80047FE57 /* CacheAsyncImage.swift */; };
 		BC5149862AAB7CC200C6E0A3 /* ArtistStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC5149852AAB7CC200C6E0A3 /* ArtistStore.swift */; };
 		BC5149882AAB828800C6E0A3 /* ArtistMiddleware.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC5149872AAB828800C6E0A3 /* ArtistMiddleware.swift */; };
 		BC51498D2AAB854E00C6E0A3 /* ProfileRemoteDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC51498C2AAB854E00C6E0A3 /* ProfileRemoteDataSource.swift */; };
@@ -85,6 +87,7 @@
 		BCB698212A9521A3003E4FDB /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCB698202A9521A3003E4FDB /* ContentView.swift */; };
 		BCB698232A9521A8003E4FDB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BCB698222A9521A8003E4FDB /* Assets.xcassets */; };
 		BCB698262A9521A8003E4FDB /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BCB698252A9521A8003E4FDB /* Preview Assets.xcassets */; };
+		BCD1AFE82B3F5E8C005C4D6A /* VerticalCarouselHomeSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCD1AFE72B3F5E8C005C4D6A /* VerticalCarouselHomeSectionView.swift */; };
 		BCE55FA62A99020C005AF29B /* TabBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCE55FA52A99020C005AF29B /* TabBarView.swift */; };
 		BCE55FA92A990234005AF29B /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCE55FA82A990234005AF29B /* HomeView.swift */; };
 		BCE55FAC2A9906F0005AF29B /* AuthMiddleware.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCE55FAB2A9906F0005AF29B /* AuthMiddleware.swift */; };
@@ -128,6 +131,8 @@
 		BC3FBD682AEC696D00014436 /* ButtonStyles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonStyles.swift; sourceTree = "<group>"; };
 		BC3FBD6A2AEC76D500014436 /* MenuButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuButton.swift; sourceTree = "<group>"; };
 		BC40FAFA2AE73B7700B85920 /* ArtistMoreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtistMoreView.swift; sourceTree = "<group>"; };
+		BC50E41C2B3B9D0A0047FE57 /* AnySpotifyCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnySpotifyCardView.swift; sourceTree = "<group>"; };
+		BC50E41F2B3B9FF80047FE57 /* CacheAsyncImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheAsyncImage.swift; sourceTree = "<group>"; };
 		BC5149852AAB7CC200C6E0A3 /* ArtistStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtistStore.swift; sourceTree = "<group>"; };
 		BC5149872AAB828800C6E0A3 /* ArtistMiddleware.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtistMiddleware.swift; sourceTree = "<group>"; };
 		BC51498C2AAB854E00C6E0A3 /* ProfileRemoteDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileRemoteDataSource.swift; sourceTree = "<group>"; };
@@ -192,6 +197,7 @@
 		BCB698202A9521A3003E4FDB /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		BCB698222A9521A8003E4FDB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		BCB698252A9521A8003E4FDB /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		BCD1AFE72B3F5E8C005C4D6A /* VerticalCarouselHomeSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerticalCarouselHomeSectionView.swift; sourceTree = "<group>"; };
 		BCE55FA52A99020C005AF29B /* TabBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarView.swift; sourceTree = "<group>"; };
 		BCE55FA82A990234005AF29B /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		BCE55FAB2A9906F0005AF29B /* AuthMiddleware.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthMiddleware.swift; sourceTree = "<group>"; };
@@ -251,9 +257,19 @@
 			children = (
 				BC37810D2A9E4527002A98C3 /* TopTracksSectionView.swift */,
 				BC2B54112A9F0360004BBE40 /* HorizontalHomeSectionView.swift */,
+				BCD1AFE72B3F5E8C005C4D6A /* VerticalCarouselHomeSectionView.swift */,
 				BC2B540F2A9E9C45004BBE40 /* AnySpotifyItemView.swift */,
+				BC50E41C2B3B9D0A0047FE57 /* AnySpotifyCardView.swift */,
 			);
 			path = "Custom Views";
+			sourceTree = "<group>";
+		};
+		BC50E41E2B3B9FD60047FE57 /* Cache */ = {
+			isa = PBXGroup;
+			children = (
+				BC50E41F2B3B9FF80047FE57 /* CacheAsyncImage.swift */,
+			);
+			path = Cache;
 			sourceTree = "<group>";
 		};
 		BC5149892AAB852100C6E0A3 /* Profile */ = {
@@ -770,6 +786,7 @@
 		BCE55FBD2A993575005AF29B /* Styling */ = {
 			isa = PBXGroup;
 			children = (
+				BC50E41E2B3B9FD60047FE57 /* Cache */,
 				BCE55FBE2A993580005AF29B /* Custom Views */,
 			);
 			path = Styling;
@@ -949,6 +966,7 @@
 				BC749E9E2A986B650070322A /* SignInView.swift in Sources */,
 				BCA4C5D92AEB59ED0091E599 /* AlbumStore.swift in Sources */,
 				BC080BB42B16406000830032 /* AnySpotifyItemRowView.swift in Sources */,
+				BCD1AFE82B3F5E8C005C4D6A /* VerticalCarouselHomeSectionView.swift in Sources */,
 				BCAEF72D2A9DA94C0095FD7C /* HomeUiModels.swift in Sources */,
 				BC570F9D2B3779FA007FD1BE /* ProfileInjector.swift in Sources */,
 				BCE8D4442A9DA5A5003259BF /* HomeMiddleware.swift in Sources */,
@@ -984,6 +1002,7 @@
 				BCAEF7302A9DAB5D0095FD7C /* HomeRemoteDataSource.swift in Sources */,
 				BC570F8A2B33EE3F007FD1BE /* SearchInjector.swift in Sources */,
 				BC8A85622A9AAE9700E08224 /* HomeModels.swift in Sources */,
+				BC50E41D2B3B9D0A0047FE57 /* AnySpotifyCardView.swift in Sources */,
 				BCA4C5DD2AEB5CC10091E599 /* AlbumUseCase.swift in Sources */,
 				BCE55FA92A990234005AF29B /* HomeView.swift in Sources */,
 				BC6321A52AE5F28D00EC126A /* VerticalArtistSectionView.swift in Sources */,
@@ -1014,6 +1033,7 @@
 				BC570F912B35F095007FD1BE /* DataModels.swift in Sources */,
 				BC37810E2A9E4527002A98C3 /* TopTracksSectionView.swift in Sources */,
 				BC6987982AA05B200091A902 /* HomeUseCase.swift in Sources */,
+				BC50E4202B3B9FF80047FE57 /* CacheAsyncImage.swift in Sources */,
 				BC599BC12B15490500E7ADF7 /* SearchBarView.swift in Sources */,
 				BC570F8F2B35D52A007FD1BE /* DataInjector.swift in Sources */,
 				BCE55FC62A996E46005AF29B /* HomeStore.swift in Sources */,

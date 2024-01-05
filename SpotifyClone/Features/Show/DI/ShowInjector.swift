@@ -13,7 +13,7 @@ enum ShowInjector {
         ShowUseCase(showRepository: provideShowRepository())
     }
     
-    private static func provideShowRepository() -> ShowRepository {
+    static func provideShowRepository() -> ShowRepository {
         ShowRepository(showRemoteDataSource: provideShowRemoteDataSource())
     }
     

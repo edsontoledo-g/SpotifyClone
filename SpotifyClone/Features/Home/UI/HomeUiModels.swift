@@ -13,10 +13,12 @@ struct HomeUi: Equatable, Hashable {
 }
 
 struct AnySpotifyItemUi: Identifiable, Equatable, Hashable {
-    var id: String
-    var name: String
-    var image: String
-    var type: SpotifyItemType
+    var id: String = ""
+    var name: String = ""
+    var image: String = ""
+    var description: String = ""
+    var caption: String = ""
+    var type: SpotifyItemType = .unknown
 }
 
 struct HomeSectionUi: Identifiable, Equatable, Hashable {
@@ -26,27 +28,45 @@ struct HomeSectionUi: Identifiable, Equatable, Hashable {
     var items: [AnySpotifyItemUi]
     var type: SectionType
     
-    enum SectionType {
+    enum SectionType: CaseIterable {
         case topTracks
         case recentlyPlayed
         case topArtists
         case relatedArtists
         case savedShows
+        case showsEpisodes
         
         func isMusic() -> Bool {
             self != .savedShows
         }
         
         func isShow() -> Bool {
-            self == .savedShows
+            self == .savedShows || self == .showsEpisodes
         }
     }
 }
 
 extension HomeUi {
     
-    func hasLoaded() -> Bool {
+    func hasLoaded(_ filter: HomeView.HeaderAction) -> Bool {
+        switch filter {
+        case .total:
+            hasLoadedHome()
+        case .music:
+            true
+        case .shows:
+            hasLoadedShows()
+        case .yourYear:
+            true
+        }
+    }
+    
+    func hasLoadedHome() -> Bool {
         !homeSectionsUi.isEmpty
+    }
+    
+    func hasLoadedShows() -> Bool {
+        !homeSectionsUi.filter { $0.type == .showsEpisodes }.isEmpty
     }
 }
 

@@ -12,7 +12,8 @@ enum HomeInjector {
     static func provideHomeUseCase() -> HomeUseCase {
         HomeUseCase(
             homeRepository: provideHomeRepository(),
-            artistRepository: ArtistInjector.provideArtistRepository()
+            artistRepository: ArtistInjector.provideArtistRepository(),
+            showRepository: ShowInjector.provideShowRepository()
         )
     }
     

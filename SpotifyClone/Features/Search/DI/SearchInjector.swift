@@ -26,6 +26,6 @@ enum SearchInjector {
     }
     
     private static func provideSearchLocalDataSource() -> SearchLocalDataSource {
-        return SearchLocalDataSource(modelContainer: DataInjector.provideModelContainer())
+        SearchLocalDataSource()
     }
 }

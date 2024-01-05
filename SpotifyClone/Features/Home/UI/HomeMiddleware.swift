@@ -21,8 +21,8 @@ class HomeMiddleware: Middleware {
     func process(state: HomeState, with action: HomeAction) async -> HomeAction? {
         switch action {
         case .loadHome(let accessToken):
-            guard !state.homeUi.hasLoaded() else {
-                return .setResults(homeUi: state.homeUi, filteredHomeUi: state.filteredHomeUi)
+            guard !state.homeUi.hasLoadedHome() else {
+                return .setResults(homeUi: state.homeUi)
             }
             async let userProfileCall = profileUseCase.getOrFetchProfile(accessToken: accessToken)
             async let userTopAlbumsCall = homeUseCase.fetchUserTopAlbums(accessToken: accessToken)
@@ -54,21 +54,26 @@ class HomeMiddleware: Middleware {
                     homeUi = handleFetchRelatedArtistsSuccess(homeUi, relatedArtists, relatedTo: userTopArtist)
                 }
                 homeUi = handleFetchUserTopArtistsSuccess(homeUi, userTopArtists)
-                homeUi = handleFetchUserSavedShowssSucces(homeUi, userSavedShows)
-                return .setResults(homeUi: homeUi, filteredHomeUi: homeUi)
+                homeUi = handleFetchUserSavedShowsSucces(homeUi, userSavedShows)
+                return .setResults(homeUi: homeUi)
             } catch {
                 return nil
             }
-        case .removeFilter:
-            return .setResults(homeUi: state.homeUi, filteredHomeUi: state.homeUi)
-        case .filterMusic:
-            var filteredHomeUi = state.homeUi
-            filteredHomeUi.homeSectionsUi = filteredHomeUi.homeSectionsUi.filter { $0.type.isMusic() }
-            return .setResults(homeUi: state.homeUi, filteredHomeUi: filteredHomeUi)
-        case .filterShows:
-            var filteredHomeUi = state.homeUi
-            filteredHomeUi.homeSectionsUi = filteredHomeUi.homeSectionsUi.filter { $0.type.isShow() }
-            return .setResults(homeUi: state.homeUi, filteredHomeUi: filteredHomeUi)
+        case .loadShows(let accessToken):
+            guard !state.homeUi.hasLoadedShows() else {
+                return .setResults(homeUi: state.homeUi)
+            }
+            var homeUi = state.homeUi
+            guard let userSavedShows = homeUi.homeSectionsUi.first (where: { $0.type == .savedShows }) else { return nil }
+            let userSavedShowsIds = userSavedShows.items.map { $0.id }
+            async let showsEpisodesCall = homeUseCase.fetchShowsEpisodes(accessToken: accessToken, ids: userSavedShowsIds)
+            do {
+                let (showsEpisodes) = try await (showsEpisodesCall)
+                homeUi = handleFetchShowsEpisodesSuccess(homeUi, showsEpisodes)
+                return .setResults(homeUi: homeUi)
+            } catch {
+                return nil
+            }
         case .setResults:
             return nil
         }
@@ -139,12 +144,24 @@ extension HomeMiddleware {
         return homeUi
     }
     
-    private func handleFetchUserSavedShowssSucces(_ homeUi: HomeUi, _ shows: [Show]) -> HomeUi {
+    private func handleFetchUserSavedShowsSucces(_ homeUi: HomeUi, _ shows: [Show]) -> HomeUi {
         let homeSectionUi = HomeSectionUi(
             id: 4,
             title: "Your shows",
             items: shows.asAnySpotifyItemsUi(),
             type: .savedShows
+        )
+        var homeUi = homeUi
+        homeUi.homeSectionsUi.append(homeSectionUi)
+        return homeUi
+    }
+    
+    private func handleFetchShowsEpisodesSuccess(_ homeUi: HomeUi, _ episodes: [Episode]) -> HomeUi {
+        let homeSectionUi = HomeSectionUi(
+            id: 5,
+            title: "",
+            items: episodes.asAnySpotifyItemUi(),
+            type: .showsEpisodes
         )
         var homeUi = homeUi
         homeUi.homeSectionsUi.append(homeSectionUi)

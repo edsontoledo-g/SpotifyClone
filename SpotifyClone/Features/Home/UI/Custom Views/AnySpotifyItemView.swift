@@ -14,7 +14,7 @@ struct AnySpotifyItemView: View {
     
     var body: some View {
         VStack {
-            AsyncImage(url: URL(string: item.image)) { image in
+            CacheAsyncImage(url: URL(string: item.image)) { image in
                 imageView(from: image)
             } placeholder: {
                 placeholderView()

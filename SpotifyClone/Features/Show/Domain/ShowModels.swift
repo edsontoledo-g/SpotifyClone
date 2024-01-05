@@ -98,6 +98,17 @@ extension EpisodeResponse {
 
 extension Episode {
     
+    func asAnySpotifyItemUi() -> AnySpotifyItemUi {
+        AnySpotifyItemUi(
+            id: id,
+            name: name,
+            image: images.first?.url ?? "",
+            description: description,
+            caption: releaseDate,
+            type: .show
+        )
+    }
+    
     func asAnyShowItemUi() -> AnyShowItemUi {
         AnyShowItemUi(
             id: id,
@@ -114,5 +125,16 @@ extension Array where Element == Show {
     
     func asAnySpotifyItemsUi() -> [AnySpotifyItemUi] {
         map { $0.asAnySpotifyItemUi() }
+    }
+}
+
+extension Array where Element == Episode {
+    
+    func asAnySpotifyItemUi() -> [AnySpotifyItemUi] {
+        map { $0.asAnySpotifyItemUi() }
+    }
+    
+    func asAnyShowItemsUi() -> [AnyShowItemUi] {
+        map { $0.asAnyShowItemUi() }
     }
 }

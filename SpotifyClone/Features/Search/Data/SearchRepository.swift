@@ -17,7 +17,7 @@ class SearchRepository {
         searchLocalDataSource: SearchLocalDataSource
     ) {
         self.searchRemoteDataSource = searchRemoteDataSource
-        self.searchLocalDataSource = SearchLocalDataSource.shared
+        self.searchLocalDataSource = searchLocalDataSource
     }
     
     func searchItems(accessToken: String, query: String) async throws -> SearchItemsResponse {

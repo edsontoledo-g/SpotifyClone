@@ -29,7 +29,7 @@ struct HomeView: View {
                 .safeAreaInset(edge: .top) {
                     headerView()
                 }
-                .showOrHide(homeStore.homeUi.hasLoaded())
+                .showOrHide(homeStore.homeUi.hasLoaded(selectedFilter))
                 .background(.primaryBackground)
                 .navigationDestination(
                     for: Router.Destination.self,
@@ -60,7 +60,7 @@ struct HomeView: View {
         case .music:
             EmptyView()
         case .shows:
-            EmptyView()
+            showsView()
         case .yourYear:
             EmptyView()
         }
@@ -69,16 +69,18 @@ struct HomeView: View {
     
     private func homeView() -> some View {
         VStack(spacing: 24.0) {
-            ForEach(homeStore.filteredHomeUi.homeSectionsUi) { homeSectionUi in
+            ForEach(homeStore.homeUi.homeSectionsUi) { homeSectionUi in
                 switch homeSectionUi.type {
                 case .topTracks:
                     TopTracksSectionView(homeSectionUi: homeSectionUi)
                 case .recentlyPlayed:
                     HorizontalHomeSectionView(homeSectionUi: homeSectionUi)
                         .frame(height: 150.0)
-                default:
+                case .relatedArtists, .topArtists, .savedShows:
                     HorizontalHomeSectionView(homeSectionUi: homeSectionUi)
                         .frame(height: 200.0)
+                default:
+                    EmptyView()
                 }
             }
         }
@@ -89,11 +91,25 @@ struct HomeView: View {
     private func musicView() -> some View {
         
     }
+     */
     
     private func showsView() -> some View {
-        
+        VStack(spacing: 24.0) {
+            ForEach(homeStore.homeUi.homeSectionsUi) { homeSectionUi in
+                switch homeSectionUi.type {
+                case .savedShows:
+                    HorizontalHomeSectionView(homeSectionUi: homeSectionUi)
+                        .frame(height: 200.0)
+                case .showsEpisodes:
+                    VerticalCarouselHomeSectionView(homeSectionUi: homeSectionUi)
+                        .padding(.horizontal)
+                        .containerRelativeFrame(.vertical)
+                default:
+                    EmptyView()
+                }
+            }
+        }
     }
-     */
     
     private func headerView() -> some View {
         HStack {
@@ -156,13 +172,9 @@ struct HomeView: View {
         selectedFilter = filter
         Task {
             switch selectedFilter {
-            case .total:
-                await homeStore.send(.removeFilter)
-            case .music:
-                await homeStore.send(.filterMusic)
             case .shows:
-                await homeStore.send(.filterShows)
-            case .yourYear:
+                await homeStore.send(.loadShows(accessToken: authStore.accessToken))
+            default:
                 break
             }
         }

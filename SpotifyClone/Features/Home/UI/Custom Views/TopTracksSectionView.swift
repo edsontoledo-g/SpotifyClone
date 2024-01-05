@@ -30,7 +30,7 @@ struct TopTracksSectionView: View {
     
     private func userTopItemView(item: AnySpotifyItemUi) -> some View {
         HStack(spacing: .zero) {
-            AsyncImage(url: URL(string: item.image)) { image in
+            CacheAsyncImage(url: URL(string: item.image)) { image in
                 image
                     .resizable()
                     .aspectRatio(contentMode: .fill)

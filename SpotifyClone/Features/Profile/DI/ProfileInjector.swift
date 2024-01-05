@@ -25,6 +25,6 @@ enum ProfileInjector {
     }
     
     private static func provideLocalDataSource() -> ProfileLocalDataSource {
-        ProfileLocalDataSource(modelContainer: DataInjector.provideModelContainer())
+        ProfileLocalDataSource()
     }
 }

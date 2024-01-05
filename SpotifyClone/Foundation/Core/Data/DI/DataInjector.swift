@@ -8,16 +8,20 @@
 import Foundation
 import SwiftData
 
-enum DataInjector {
+class StorageProvider {
     
-    static func provideModelContainer() -> ModelContainer {
+    static let shared = StorageProvider()
+    
+    let modelContainer: ModelContainer
+    
+    init?() {
         do {
-            return try ModelContainer(for: [
+            modelContainer = try ModelContainer(for: [
                 RecentSearch.self,
                 User.self
             ])
         } catch {
-            fatalError("Failed to create ModelContainer")
+            return nil
         }
     }
 }

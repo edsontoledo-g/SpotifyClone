@@ -11,13 +11,16 @@ class HomeUseCase {
     
     private let homeRepository: HomeRepository
     private let artistRepository: ArtistRepository
+    private let showRepository: ShowRepository
     
     init(
         homeRepository: HomeRepository, 
-        artistRepository: ArtistRepository
+        artistRepository: ArtistRepository,
+        showRepository: ShowRepository
     ) {
         self.homeRepository = homeRepository
         self.artistRepository = artistRepository
+        self.showRepository = showRepository
     }
     
     func fetchUserTopArtists(
@@ -90,5 +93,15 @@ class HomeUseCase {
             offset: offset
         )
         return userSavedShows.asShows()
+    }
+    
+    func fetchShowsEpisodes(accessToken: String, ids: [String]) async throws -> [Episode] {
+        let severalShowResponse = try await showRepository.fetchSeveralShows(accessToken: accessToken, ids: ids)
+        var showsEpisodes: [Episode] = []
+        for show in severalShowResponse.shows {
+            let currentShow = try await showRepository.fetchShow(accessToken: accessToken, id: show.id)
+            showsEpisodes += currentShow.episodes?.items.shuffled().prefix(3) ?? []
+        }
+        return showsEpisodes.shuffled()
     }
 }
