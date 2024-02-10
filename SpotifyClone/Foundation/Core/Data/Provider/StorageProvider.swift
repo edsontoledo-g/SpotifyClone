@@ -1,5 +1,5 @@
 //
-//  DataInjector.swift
+//  StorageProvider.swift
 //  SpotifyClone
 //
 //  Created by Edson Dario Toledo Gonzalez on 22/12/23.

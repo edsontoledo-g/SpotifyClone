@@ -17,7 +17,7 @@ enum HomeInjector {
         )
     }
     
-    private static func provideHomeRepository() -> HomeRepository {
+    static func provideHomeRepository() -> HomeRepository {
         HomeRepository(homeRemoteDataSource: provideHomeRemoteDataSource())
     }
     
