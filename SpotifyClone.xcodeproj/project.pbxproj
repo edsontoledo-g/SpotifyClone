@@ -285,13 +285,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		BC080BB22B16401400830032 /* Custom Views */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = "Custom Views";
-			sourceTree = "<group>";
-		};
 		BC1875262B1D7A1A0080708D /* UI */ = {
 			isa = PBXGroup;
 			children = (
@@ -913,7 +906,6 @@
 		BCEFD1D42B127E6E0060D555 /* UI */ = {
 			isa = PBXGroup;
 			children = (
-				BC080BB22B16401400830032 /* Custom Views */,
 				BCEFD1D52B127E7A0060D555 /* SearchView.swift */,
 				BC599BC02B15490500E7ADF7 /* SearchBarView.swift */,
 				BCEFD1E42B1293B60060D555 /* SearchUiModels.swift */,

@@ -16,10 +16,7 @@ class StorageProvider {
     
     init?() {
         do {
-            modelContainer = try ModelContainer(for: [
-                RecentSearch.self,
-                User.self
-            ])
+            modelContainer = try ModelContainer(for: RecentSearch.self, User.self)
         } catch {
             return nil
         }
