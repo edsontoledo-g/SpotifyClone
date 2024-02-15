@@ -25,6 +25,7 @@ struct HomeView: View {
             NavigationStack(path: $router.navigationPath) {
                 ScrollView {
                     contentView()
+                        .padding(.bottom)
                 }
                 .safeAreaInset(edge: .top) {
                     headerView()
@@ -58,7 +59,7 @@ struct HomeView: View {
         case .total:
             homeView()
         case .music:
-            EmptyView()
+            musicView()
         case .shows:
             showsView()
         case .yourYear:
@@ -84,14 +85,24 @@ struct HomeView: View {
                 }
             }
         }
-        .padding(.bottom)
     }
     
-    /*
     private func musicView() -> some View {
-        
+        VStack(spacing: 24.0) {
+            ForEach(homeStore.homeUi.homeSectionsUi) { homeSectionUi in
+                switch homeSectionUi.type {
+                case .recentlyPlayed:
+                    HorizontalHomeSectionView(homeSectionUi: homeSectionUi)
+                        .frame(height: 150.0)
+                case .relatedArtists, .topArtists:
+                    HorizontalHomeSectionView(homeSectionUi: homeSectionUi)
+                        .frame(height: 200.0)
+                default:
+                    EmptyView()
+                }
+            }
+        }
     }
-     */
     
     private func showsView() -> some View {
         VStack(spacing: 24.0) {

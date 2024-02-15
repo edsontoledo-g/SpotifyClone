@@ -40,7 +40,7 @@ class HomeUseCase {
     
     func fetchUserTopAlbums(
         accessToken: String,
-        limit: Int = 8,
+        limit: Int = 9,
         offset: Int = 0
     ) async throws -> [Album] {
         let trackResponse: TrackResponse = try await homeRepository.fetchUserTopItems(

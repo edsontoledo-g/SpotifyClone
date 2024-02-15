@@ -12,6 +12,7 @@ class SearchMiddleware: Middleware {
     
     private let searchUseCase: SearchUseCase
     private let profileUseCase: ProfileUseCase
+    private var searchTask: Task<AlbumsAndArtists, Error>?
     
     init() {
         searchUseCase = SearchInjector.provideSearchUseCase()
@@ -52,8 +53,13 @@ class SearchMiddleware: Middleware {
             let searchUi = handleDeleteRecentSearchSuccess(state.searchUi, item)
             return .setResults(searchUi: searchUi)
         case .searchItems(let accessToken, let query):
+            searchTask?.cancel()
+            searchTask = Task.detached {
+                try await Task.sleep(nanoseconds: 500_000_000)
+                return try await self.searchUseCase.searchItems(accessToken: accessToken, query: query)
+            }
             do {
-                let searchItems = try await searchUseCase.searchItems(accessToken: accessToken, query: query)
+                let searchItems = try await searchTask!.value
                 let searchUi = handleSearchItemsSuccess(state.searchUi, searchItems)
                 return .setResults(searchUi: searchUi)
             } catch {
