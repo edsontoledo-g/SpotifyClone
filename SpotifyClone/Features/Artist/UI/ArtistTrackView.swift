@@ -9,6 +9,7 @@ import SwiftUI
 
 struct ArtistTrackView: View {
     
+    @Environment(PlaybarManager.self) private var playbarManager
     var item: AnyArtistItemUi
     
     var body: some View {
@@ -29,6 +30,7 @@ struct ArtistTrackView: View {
             Button("", systemImage: "ellipsis") {}
                 .foregroundStyle(.secondary)
         }
+        .onTapGesture { playbarManager.play(playbarUi: item.asPlaybarUi()) }
     }
 }
 

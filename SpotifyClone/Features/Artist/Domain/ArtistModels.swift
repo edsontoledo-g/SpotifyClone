@@ -65,7 +65,8 @@ extension Artist {
             id: id,
             name: name,
             image: images?.first?.url ?? "",
-            type: .artist
+            type: .artist,
+            artists: []
         )
     }
     

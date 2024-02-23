@@ -10,6 +10,7 @@ import SwiftUI
 struct TabBarView: View {
     
     @Environment(AuthStore.self) private var authStore
+    @Environment(PlaybarManager.self) private var playbarManager
     @State private var homeRouter = Router()
     @State private var searchRouter = Router()
     
@@ -18,9 +19,17 @@ struct TabBarView: View {
         TabView {
             ForEach(Tab.allCases, id: \.rawValue) { tab in
                 tab.view
+                    .padding(.bottom, playbarManager.isVisible() ? 56.0 : 0.0)
                     .tabItem {
                         Image(systemName: tab.imageName)
                         Text(tab.name)
+                    }
+                    .overlay(alignment: .bottom) {
+                        if playbarManager.isVisible() {
+                            PlaybarView()
+                                .padding(.bottom, 1.0)
+                                .transition(.push(from: .bottom))
+                        }
                     }
                     .environment(router(for: tab))
             }
@@ -28,6 +37,7 @@ struct TabBarView: View {
         .fullScreenCover(isPresented: $authStore.state.showAuth) {
             SignInView()
         }
+        .animation(.bouncy, value: playbarManager.state)
     }
     
     private func router(for tab: Tab) -> Router {
@@ -71,6 +81,7 @@ extension TabBarView {
         .preferredColorScheme(.dark)
         .tint(.white)
         .environment(Router())
+        .environment(PlaybarManager(playbarUi: .sampleData))
         .environment(
             AuthStore(
                 state: .init(),
@@ -78,4 +89,11 @@ extension TabBarView {
                 middlewares: [AuthMiddleware()]
             )
         )
+}
+
+extension EnumeratedSequence {
+    
+    func toArray() -> Array<Element> {
+        Array(self)
+    }
 }

@@ -9,6 +9,7 @@ import SwiftUI
 
 struct AlbumTrackView: View {
     
+    @Environment(PlaybarManager.self) private var playbarManager
     var item: AnyAlbumItemUi
     
     var body: some View {
@@ -23,6 +24,7 @@ struct AlbumTrackView: View {
             Button("", systemImage: "ellipsis", action: {})
                 .buttonStyle(SecondaryButtonStyle())
         }
+        .onTapGesture { playbarManager.play(playbarUi: item.asPlaybarUi()) }
     }
 }
 
@@ -30,4 +32,5 @@ struct AlbumTrackView: View {
     AlbumTrackView(item: AlbumSectionUi.sampleData.items[0])
         .preferredColorScheme(.dark)
         .tint(.white)
+        .environment(PlaybarManager())
 }

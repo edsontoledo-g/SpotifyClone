@@ -55,6 +55,7 @@ struct AnySpotifyItemView: View {
         } else {
             Color.primaryGray.opacity(0.5)
                 .clipShape(Rectangle())
+                .aspectRatio(1.0, contentMode: .fit)
         }
     }
     

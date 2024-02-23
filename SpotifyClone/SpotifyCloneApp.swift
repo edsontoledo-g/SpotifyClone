@@ -10,6 +10,7 @@ import SwiftUI
 @main
 struct SpotifyCloneApp: App {
     
+    @State private var playbarManager = PlaybarManager()
     @State private var authStore = AuthStore(
         state: .init(),
         reducer: AuthReducer(),
@@ -19,6 +20,7 @@ struct SpotifyCloneApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .environment(playbarManager)
                 .environment(authStore)
         }
     }

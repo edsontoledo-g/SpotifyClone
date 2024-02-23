@@ -9,6 +9,7 @@ import SwiftUI
 
 struct ArtistMoreView: View {
     
+    @Environment(PlaybarManager.self) private var playbarManager
     @Binding var showArtistMoreView: Bool
     var artistUi: ArtistUi
     
@@ -26,6 +27,12 @@ struct ArtistMoreView: View {
             Button("Close", action: closeButtonPressed)
         }
         .toolbar(.hidden, for: .tabBar)
+        .onAppear {
+            playbarManager.hidePlaybar()
+        }
+        .onDisappear {
+            playbarManager.showPlaybar()
+        }
     }
     
     @MainActor private func coverView() -> some View {
@@ -135,4 +142,5 @@ extension ArtistMoreView {
     )
     .preferredColorScheme(.dark)
     .tint(.primary)
+    .environment(PlaybarManager(playbarUi: .sampleData))
 }

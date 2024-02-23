@@ -58,7 +58,7 @@ struct ShowDetailView: View {
             }
         }
         .toolbar(.hidden)
-        .ignoresSafeArea()
+        .ignoresSafeArea(.all, edges: .top)
         .task { await loadShow() }
     }
     

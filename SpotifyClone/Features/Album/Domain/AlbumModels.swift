@@ -60,7 +60,8 @@ extension Album {
             name: name,
             image: images.first?.url ?? "",
             type: .track,
-            releaseDate: releaseDate
+            releaseDate: releaseDate,
+            artists: artists ?? []
         )
     }
     

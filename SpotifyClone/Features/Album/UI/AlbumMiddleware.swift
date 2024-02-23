@@ -41,7 +41,7 @@ extension AlbumMiddleware {
         albumUi.albumSectionsUi.append(
             AlbumSectionUi(
                 id: 0,
-                items: album.tracks?.items.asAnyAlbumItemsUi() ?? [],
+                items: album.tracks?.items.asAnyAlbumItemsUi(albumImage: albumUi.image) ?? [],
                 type: .tracks
             )
         )

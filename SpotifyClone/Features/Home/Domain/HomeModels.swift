@@ -43,6 +43,7 @@ struct Track: Codable {
     var album: Album?
     var artists: [Artist]
     var durationMs: Int
+    var previewUrl: String
     
     private enum CodingKeys: String, CodingKey {
         case id
@@ -50,6 +51,7 @@ struct Track: Codable {
         case album
         case artists
         case durationMs = "duration_ms"
+        case previewUrl = "preview_url"
     }
 }
 
@@ -60,18 +62,21 @@ extension Track {
             id: id,
             name: name,
             image: album?.images.first?.url ?? "",
-            type: .artist
-        )
-    }
-    
-    func asAnyAlbumItemUi() -> AnyAlbumItemUi {
-        AnyAlbumItemUi(
-            id: id,
-            name: name,
+            type: .artist, 
+            previewUrl: previewUrl,
             artists: artists
         )
     }
     
+    func asAnyAlbumItemUi(albumImage: String) -> AnyAlbumItemUi {
+        AnyAlbumItemUi(
+            id: id,
+            name: name,
+            image: albumImage,
+            artists: artists,
+            previewUrl: previewUrl
+        )
+    }
 }
 
 extension Array where Element == Track {
@@ -88,7 +93,7 @@ extension Array where Element == Track {
         map { $0.asAnyArtistItemUi() }
     }
     
-    func asAnyAlbumItemsUi() -> [AnyAlbumItemUi] {
-        map { $0.asAnyAlbumItemUi() }
+    func asAnyAlbumItemsUi(albumImage: String = "") -> [AnyAlbumItemUi] {
+        map { $0.asAnyAlbumItemUi(albumImage: albumImage) }
     }
 }

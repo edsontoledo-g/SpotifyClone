@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5F829F8D2B878D9600A4C529 /* Double+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F829F8C2B878D9600A4C529 /* Double+Extension.swift */; };
+		5FAB80962B85949C00E78EC7 /* PlaybarManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FAB80952B85949C00E78EC7 /* PlaybarManager.swift */; };
+		5FB759112B86338B00E22361 /* PlaybarUiModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FB759102B86338B00E22361 /* PlaybarUiModels.swift */; };
+		5FB759162B86361100E22361 /* PlaybarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FB759152B86361100E22361 /* PlaybarView.swift */; };
 		BC080BB42B16406000830032 /* AnySpotifyItemRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC080BB32B16406000830032 /* AnySpotifyItemRowView.swift */; };
 		BC1875282B1D7A2A0080708D /* ProfileUiModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC1875272B1D7A2A0080708D /* ProfileUiModels.swift */; };
 		BC18752A2B1D80440080708D /* CapsuleButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC1875292B1D80440080708D /* CapsuleButton.swift */; };
@@ -147,6 +151,10 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		5F829F8C2B878D9600A4C529 /* Double+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Double+Extension.swift"; sourceTree = "<group>"; };
+		5FAB80952B85949C00E78EC7 /* PlaybarManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaybarManager.swift; sourceTree = "<group>"; };
+		5FB759102B86338B00E22361 /* PlaybarUiModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaybarUiModels.swift; sourceTree = "<group>"; };
+		5FB759152B86361100E22361 /* PlaybarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaybarView.swift; sourceTree = "<group>"; };
 		BC080BB32B16406000830032 /* AnySpotifyItemRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnySpotifyItemRowView.swift; sourceTree = "<group>"; };
 		BC1875272B1D7A2A0080708D /* ProfileUiModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileUiModels.swift; sourceTree = "<group>"; };
 		BC1875292B1D80440080708D /* CapsuleButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CapsuleButton.swift; sourceTree = "<group>"; };
@@ -285,6 +293,31 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		5FAB80942B85948C00E78EC7 /* Audio */ = {
+			isa = PBXGroup;
+			children = (
+				5FAB80952B85949C00E78EC7 /* PlaybarManager.swift */,
+			);
+			path = Audio;
+			sourceTree = "<group>";
+		};
+		5FB759122B86356C00E22361 /* Playbar */ = {
+			isa = PBXGroup;
+			children = (
+				5FB759132B8635C600E22361 /* UI */,
+			);
+			path = Playbar;
+			sourceTree = "<group>";
+		};
+		5FB759132B8635C600E22361 /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				5FB759152B86361100E22361 /* PlaybarView.swift */,
+				5FB759102B86338B00E22361 /* PlaybarUiModels.swift */,
+			);
+			path = UI;
+			sourceTree = "<group>";
+		};
 		BC1875262B1D7A1A0080708D /* UI */ = {
 			isa = PBXGroup;
 			children = (
@@ -508,6 +541,7 @@
 				BC39E1772A998E7A00E5EB6E /* URLRequest+Extension.swift */,
 				BC6321A62AE61FA200EC126A /* Image+Extension.swift */,
 				BCF58C522B3A82F900451C28 /* Int+Extension.swift */,
+				5F829F8C2B878D9600A4C529 /* Double+Extension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -522,6 +556,7 @@
 				BC8A85672A9AAFA300E08224 /* Album */,
 				BCAE9E462B3802D000071823 /* Show */,
 				BCEFD1D32B127E540060D555 /* Search */,
+				5FB759122B86356C00E22361 /* Playbar */,
 			);
 			path = Features;
 			sourceTree = "<group>";
@@ -877,6 +912,7 @@
 		BCEB2EA32AEA06CC00C1F235 /* Core */ = {
 			isa = PBXGroup;
 			children = (
+				5FAB80942B85948C00E78EC7 /* Audio */,
 				BC570F8C2B35D510007FD1BE /* Data */,
 				BCEB2EA72AEA201900C1F235 /* Routing */,
 				BC749E8F2A9861770070322A /* Network */,
@@ -1058,6 +1094,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5FB759112B86338B00E22361 /* PlaybarUiModels.swift in Sources */,
 				BCA4C5D72AEB45A90091E599 /* AlbumUiModels.swift in Sources */,
 				BCE55FBA2A991C95005AF29B /* AuthRemoteDataSource.swift in Sources */,
 				BC749E9E2A986B650070322A /* SignInView.swift in Sources */,
@@ -1069,6 +1106,7 @@
 				BCE8D4442A9DA5A5003259BF /* HomeMiddleware.swift in Sources */,
 				BCEFD1E52B1293B60060D555 /* SearchUiModels.swift in Sources */,
 				BCAE9E5B2B38A6B500071823 /* ShowMiddleware.swift in Sources */,
+				5FAB80962B85949C00E78EC7 /* PlaybarManager.swift in Sources */,
 				BC51498D2AAB854E00C6E0A3 /* ProfileRemoteDataSource.swift in Sources */,
 				BC749E932A98632C0070322A /* NetworkModels.swift in Sources */,
 				BCE55FA62A99020C005AF29B /* TabBarView.swift in Sources */,
@@ -1084,10 +1122,12 @@
 				BCE55FC42A993889005AF29B /* AuthView.swift in Sources */,
 				BCAE9E552B38A39A00071823 /* ShowDetailView.swift in Sources */,
 				BCF58C512B3A713B00451C28 /* ShowThrillerView.swift in Sources */,
+				5FB759162B86361100E22361 /* PlaybarView.swift in Sources */,
 				BC39E1782A998E7A00E5EB6E /* URLRequest+Extension.swift in Sources */,
 				BC40FAFB2AE73B7700B85920 /* ArtistMoreView.swift in Sources */,
 				BC3FBD672AEC645E00014436 /* PlayButton.swift in Sources */,
 				BCEFD1DF2B128D320060D555 /* SearchRepository.swift in Sources */,
+				5F829F8D2B878D9600A4C529 /* Double+Extension.swift in Sources */,
 				BCA4C5E32AEB5D060091E599 /* AlbumRemoteDataSource.swift in Sources */,
 				BC6321A72AE61FA200EC126A /* Image+Extension.swift in Sources */,
 				BC8A856A2A9AAFFA00E08224 /* AlbumModels.swift in Sources */,
